@@ -13,5 +13,5 @@ class Post(db.Model):
     db.String, nullable=False
   )
   user_id = db.Column(
-    db.Integer
+    db.Integer, db.ForeignKey('users.id'), nullable=False 
   )
