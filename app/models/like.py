@@ -1,8 +1,7 @@
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from flask_sqlalchemy import SQLAlchemy
 from .user import User
 from .post import Post
-from .db import db, environment, SCHEMA, add_prefix_for_prod
-
 
 
 class Like(db.Model):
@@ -19,6 +18,8 @@ class Like(db.Model):
   post_id = db.Column(
     db.Integer, db.ForeignKey('posts.id'), nullable=False 
   )
+  users = db.relationship("User", back_populates="likes")
+  posts = db.relationship("Post", back_populates="likes")
   
   
 
