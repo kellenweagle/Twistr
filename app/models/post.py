@@ -16,3 +16,4 @@ class Post(db.Model):
     db.Integer, db.ForeignKey('users.id'), nullable=False 
   )
   comments = db.relationship('Comment', back_populates='post')
+  likes = db.relationship('Like', back_populates='post')
