@@ -17,3 +17,4 @@ class Post(db.Model):
   )
   comments = db.relationship('Comment', back_populates='post')
   likes = db.relationship('Like', back_populates='post')
+  images = db.relationship('Image', back_populates='post')
