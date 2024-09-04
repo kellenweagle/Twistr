@@ -10,8 +10,9 @@ class Post(db.Model):
     db.Integer, primary_key=True
   )
   post = db.Column(
-    db.String, nullable=False
+    db.String(1000), nullable=False
   )
   user_id = db.Column(
     db.Integer, db.ForeignKey('users.id'), nullable=False 
   )
+  comments = db.relationship('Comment', back_populates='post')
