@@ -20,7 +20,7 @@ def seed_posts():
         user_id=4
     )
     post_five = Post(
-        post='people are always like "enemies to lovers is so toxic, why can\'t all romances be best friends to lovers-" because that\'s literally 99% of relationships in real life. it\'s FICTION, guys. we can get weird in fiction. we can get freaky with it',
+        post='I have no strong opinions regarding the correct length for spaghetti, but I can\'t help but feel that folks who insist they have to break their spaghetti because otherwise it won\'t fit in the pot are fundamentally misunderstanding the nature of pasta.',
         user_id=1
     )
     post_five = Post(
