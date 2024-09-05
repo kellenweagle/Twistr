@@ -15,10 +15,10 @@ class Post(db.Model):
     db.Integer, primary_key=True
   )
   post = db.Column(
-    db.String(1000), nullable=False
+    db.String(1000)
   )
   user_id = db.Column(
-    db.Integer, db.ForeignKey('users.id'), nullable=False 
+    db.Integer, db.ForeignKey('users.id'), nullable=False
   )
   comments = db.relationship('Comment', back_populates='posts')
   likes = db.relationship('Like', back_populates='posts')
