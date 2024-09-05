@@ -59,10 +59,6 @@ def seed_posts():
         post='today\'s bug thing is this beetle bread!',
         user_id=2
     )
-    post_thirteen = Post(
-        post='',
-        user_id=3
-    )
     post_fourteen = Post(
         post='I have a friend who, like me, does not have “heart feels” when cooking. We need measurements. We need exact replicable steps. Cooking should be more like baking where if I follow instructions precisely I\'ll have the same meal each time. So when he asked his mom for her recipes he was vexed to find that she\'d say one thing but use a lot more or less than the spice she\'d said. Her approximated recipes were much less vibrant that the real food she made. His solution: he weighed her spices before and after the meal while noting all the steps she took. Finally. A recipe that was true.',
         user_id=4
@@ -98,6 +94,7 @@ def seed_posts():
     db.session.add(post_three)
     db.session.add(post_four)
     db.session.add(post_five)
+    db.session.add(post_six)
     db.session.add(post_seven)
     db.session.add(post_eight)
     db.session.add(post_nine)
