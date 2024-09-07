@@ -24,3 +24,9 @@ class Post(db.Model):
   likes = db.relationship('Like', back_populates='posts')
   images = db.relationship('Image', back_populates='posts')
   users = db.relationship("User", back_populates="posts")
+
+  def to_dict(self):
+    return {
+      'id': self.id,
+      'post': self.post
+    }
