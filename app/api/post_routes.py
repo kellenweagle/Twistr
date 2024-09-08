@@ -1,8 +1,7 @@
-from flask import Blueprint, jsonify, request
-from flask_login import login_required
+from flask import Blueprint, request
+from flask_login import login_required, current_user
 from app.models import Post, db
 from app.forms import PostForm
-from flask_login import current_user
 
 post_routes = Blueprint('posts', __name__)
 
