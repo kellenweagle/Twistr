@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session
-from flask_login import login_required
+from flask_login import current_user, login_required
 from app.models import Like, db
 
 likes_routes = Blueprint('likes', __name__)
@@ -24,7 +24,7 @@ def user(id):
     Query for a user by id and returns that user in a dictionary
 
     """
-    # user= session['user_id']
+    user = current_user.to_dict()
 
    
     new_like = Like(post_id=id, user_id= str(user["id"]))
