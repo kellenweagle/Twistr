@@ -17,7 +17,7 @@ def likes(id):
     return {'likes': [like.to_dict() for like in likes]}
 
 
-@likes_routes.route('<int:id>/likes', methods=['get', 'post'])
+@likes_routes.route('<int:id>/likes', methods=['post'])
 @login_required
 def user(id):
     """
@@ -27,7 +27,7 @@ def user(id):
     # user= session['user_id']
 
    
-    new_like = Like(post_id=id, user_id=user)
+    new_like = Like(post_id=id, user_id= str(user["id"]))
     db.session.add(new_like)
     db.session.commit()
     return user.to_dict()
