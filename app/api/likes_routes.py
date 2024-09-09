@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session
 from flask_login import current_user, login_required
-from app.models import Like, db
+from app.models import Like , db
 
 likes_routes = Blueprint('likes', __name__)
 
@@ -26,8 +26,12 @@ def user(id):
     """
     user = current_user.to_dict()
 
-   
-    new_like = Like(post_id=id, user_id= str(user["id"]))
-    db.session.add(new_like)
-    db.session.commit()
-    return user.to_dict()
+    likes = Like.query.filter_by(post_id=id, user_id=str(user["id"])).all()
+
+    if len(likes) < 1:
+        new_like = Like(post_id=id, user_id= str(user["id"]))
+        db.session.add(new_like)
+        db.session.commit()
+        return new_like.to_dict()
+    else:
+        return 'post has already been liked by this user.', 401
