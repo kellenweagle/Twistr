@@ -13,7 +13,7 @@ class Post(db.Model):
 
 
   id = db.Column(db.Integer, primary_key=True)
-  post = db.Column(db.String(1000))
+  post = db.Column(db.String(10000))
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
   # created_at = db.Column(
   #   db.DateTime, default=datetime.now
