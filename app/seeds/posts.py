@@ -44,7 +44,7 @@ def seed_posts():
         user_id=2
     )
     post_ten = Post(
-        post='(｀＾´ )🌟',
+        post='(｀＾´ )',
         user_id=3
     )
     post_eleven = Post(
