@@ -6,7 +6,7 @@ likes_routes = Blueprint('likes', __name__)
 
 
 @likes_routes.route('<int:id>/likes')
-def likes(id):
+def get_likes(id):
     """
     Query for all likes and returns them in a list of user dictionaries
     by post id
@@ -19,7 +19,7 @@ def likes(id):
 
 @likes_routes.route('<int:id>/likes', methods=['post'])
 @login_required
-def user(id):
+def like_post(id):
     """
     Query for a user by id and returns that user in a dictionary
 
@@ -35,3 +35,19 @@ def user(id):
         return new_like.to_dict()
     else:
         return 'post has already been liked by this user.', 401
+
+@likes_routes.route('<int:id>/likes', methods=['delete'])
+@login_required
+def delete_like(id):
+    
+    user = current_user.to_dict()
+    likes = Like.query.filter_by(post_id=id, user_id=str(user["id"]))
+    print(likes.id, 'hhhhhhhhhh')
+    like = Like.query.get(likes.id)
+    print(like,'lllliiiikkkkeee')
+    if like.user_id == user['id']:
+        db.session.delete(like)
+        db.session.commit()
+        return 'Delete Successful'
+    else:
+        return 'Like does not belong to user', 401
