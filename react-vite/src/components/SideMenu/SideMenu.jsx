@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import OpenModalButton from "../OpenModalButton/OpenModalButton";
+// import { useState, useEffect } from "react";
+// import { useDispatch } from "react-redux";
+// import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { GoHomeFill } from "react-icons/go";
 import { FaRegCompass } from "react-icons/fa";
 import { BsLightningChargeFill } from "react-icons/bs";

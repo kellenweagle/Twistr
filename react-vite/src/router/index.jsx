@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
-import Splash from '../screens/splash/Splash'
+import Splash from '../screens/splash/Splash';
 
 export const router = createBrowserRouter([
   {
