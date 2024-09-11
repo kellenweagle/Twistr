@@ -6,6 +6,9 @@ nav {
   display: flex;
   justify-content: center;
 }
+.nav-bar {
+  height: 53px;
+}
 
 .nav-list {
   display: flex;
@@ -55,7 +58,7 @@ nav {
   display: flex;
   align-items: center;
   padding: 14px 8px 0 8px;
-  width: 304px;
+  width: 284px;
 }
 
 .search {
