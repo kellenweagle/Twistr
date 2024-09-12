@@ -16,6 +16,7 @@ nav {
   width: 1120px;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 .nav-logo {
@@ -45,7 +46,7 @@ nav {
   font-size: 1rem !important;
   text-decoration: none !important;
   list-style: none;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.65);
   font-family: sans-serif;
   letter-spacing: .075rem;
 }
