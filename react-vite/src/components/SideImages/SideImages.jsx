@@ -47,6 +47,7 @@ const SideImages = () => {
         </div>
       </div>
       <button className='explore-button-right'>Explore all of Twistr</button>
+      <h3>Radar</h3>
     </div>
   )
 }
