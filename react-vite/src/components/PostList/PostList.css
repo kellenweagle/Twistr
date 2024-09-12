@@ -21,11 +21,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
   width: 74px;
-  height: 74px;
+  height: 70px;
   font-size: 1rem;
   font-family: sans-serif;
   background-color: white;
+  cursor: pointer;
+}
+
+.create-menu li:hover {
+  justify-content: space-between;
 }
 
 .create-icon {

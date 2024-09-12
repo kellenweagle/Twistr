@@ -7,9 +7,9 @@ const Splash = () => {
 
   return (
     <main className='splash-main'>
-      <SideMenu />
+      <SideMenu className='side-menu'/>
       <PostList />
-      <SideImages />
+      <SideImages className='side-images'/>
     </main>
   )
 

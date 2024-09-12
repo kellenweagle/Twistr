@@ -67,15 +67,18 @@ nav {
   height: 24px;
   padding: 5px;
   border-radius: 0 8px 8px 0 ;
-  background-color: #404040;
+  background-color: rgba(255, 255, 255, 0.25);
   border: none;
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.6);
+}
+
+.search::placeholder {
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .search-icon {
-  color: rgba(255, 255, 255, 0.6);
-  background-color: #404040;
+  color: rgba(255, 255, 255, 0.65);
+  background-color: rgba(255, 255, 255, 0.25);
   width: 18px;
   height: 24px;
   padding: 5px 8px 5px 12px;

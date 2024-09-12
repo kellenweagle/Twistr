@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+# from flask_wtf import generate_csrf
 from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
@@ -61,6 +62,11 @@ def sign_up():
         login_user(user)
         return user.to_dict()
     return form.errors, 401
+
+
+# @auth_routes.route('/csrf/restore')
+# def restore_csrf():
+#     return {'XSRF-TOKEN': generate_csrf()}
 
 
 @auth_routes.route('/unauthorized')
