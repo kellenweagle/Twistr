@@ -16,6 +16,7 @@
   font-size: 16px;
   height: 40px;
   align-items: center;
+  text-decoration: none;
 }
 
 .side-menu button:hover {
@@ -36,9 +37,9 @@
 }
 
 .create-button {
-  background-color: lightblue;
+  background-color: #00B8FF;
   height: 40px;
-  width: 240px;
+  width: 95%;
   border-radius: 20px;
   font-size: 16px;
   cursor: pointer;
