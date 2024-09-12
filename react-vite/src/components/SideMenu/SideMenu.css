@@ -1,0 +1,47 @@
+.full-left-side {
+  width: 240px;
+  height: 93dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.side-menu button {
+  color: rgba(255, 255, 255, .65);
+  cursor: pointer;
+  width: 240px;
+  border: none;
+  display: flex;
+  justify-content: start;
+  font-size: 16px;
+  height: 40px;
+  align-items: center;
+  text-decoration: none;
+}
+
+.side-menu button:hover {
+  background-color: rgba(255, 255, 255, .07);
+}
+
+.side-menu {
+  padding-top: 40px;
+}
+
+.side-menu p {
+  margin-left: 10px;
+}
+
+.menu-icon {
+  margin-right: 10px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.create-button {
+  background-color: #00B8FF;
+  height: 40px;
+  width: 95%;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+}

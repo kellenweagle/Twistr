@@ -6,6 +6,9 @@ nav {
   display: flex;
   justify-content: center;
 }
+.nav-bar {
+  height: 53px;
+}
 
 .nav-list {
   display: flex;
@@ -13,6 +16,7 @@ nav {
   width: 1120px;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 .nav-logo {
@@ -31,7 +35,7 @@ nav {
   display: flex;
   width: 578px;
   height: 52px;
-  padding-top: 4px;
+
   border: 1px solid rgba(255, 255, 255, 0.13);
   border-top: none;
   text-decoration: none !important;
@@ -39,11 +43,12 @@ nav {
 
 .post-menu h2 {
   padding: 14px 16px;
-  font-size: 1.125rem;
+  font-size: 1rem !important;
   text-decoration: none !important;
   list-style: none;
-  color: white;
+  color: rgba(255, 255, 255, 0.65);
   font-family: sans-serif;
+  letter-spacing: .075rem;
 }
 
 .menu-link {
@@ -54,7 +59,7 @@ nav {
   display: flex;
   align-items: center;
   padding: 14px 8px 0 8px;
-  width: 304px;
+  width: 284px;
 }
 
 .search {

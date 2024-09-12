@@ -1,0 +1,99 @@
+.side-image-container {
+  width: 320px;
+}
+
+.side-image-container h3 {
+  color: rgba(255, 255, 255, .95);
+  font-family: sans-serif;
+  margin: 20px 0px;
+  padding-left: 8px;
+}
+
+.blog-photo {
+  height: 37px;
+  width: 37px;
+  border-radius: 10%;
+  margin-left: 8px;
+}
+
+.blog-list {
+  padding-bottom: 8px;
+}
+
+.blog-link {
+  height: 59px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.blog-photo-and-text {
+  display: flex;
+  background-color: transparent !important;
+}
+
+.blog-link:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, .07);
+}
+
+.blog-name-text {
+  font-family: sans-serif;
+  padding-left: 8px;
+  background-color: transparent !important;
+}
+
+.blog-username {
+  color: rgba(255, 255, 255, .95);
+  font-size: 15px;
+  font-weight: bold;
+  padding-bottom: 4px;
+  background-color: transparent !important;
+}
+
+.blog-name {
+  color: rgba(255, 255, 255, .50);
+  font-size: 15px;
+  background-color: transparent !important;
+}
+
+.blog-name-text:hover{
+  background-color: transparent !important;
+}
+
+.blog-follow-button {
+  border: none;
+  background-color: transparent;
+  color: #00B8FF;
+  font-size: 15px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+.blog-follow-button:hover {
+  text-decoration: underline solid #00B8FF;
+  cursor: pointer;
+  font-size: 15px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+.explore-button-right {
+  border: none;
+  background-color: transparent;
+  color: #00B8FF;
+  font-size: 16px;
+  font-family: sans-serif;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.explore-button-right:hover {
+  text-decoration: underline solid #00B8FF;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: sans-serif;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
