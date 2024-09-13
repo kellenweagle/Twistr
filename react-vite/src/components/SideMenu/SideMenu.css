@@ -6,7 +6,7 @@
   justify-content: space-between;
 }
 
-.side-menu button {
+.side-menu-logged button {
   color: rgba(255, 255, 255, .65);
   cursor: pointer;
   width: 240px;
@@ -16,17 +16,20 @@
   font-size: 16px;
   height: 40px;
   align-items: center;
+  text-decoration: none;
+  background-color: #001935;
 }
 
-.side-menu button:hover {
+.side-menu-logged button:hover {
   background-color: rgba(255, 255, 255, .07);
 }
 
-.side-menu {
+.side-menu-logged {
   padding-top: 40px;
+  background-color: #001935;
 }
 
-.side-menu p {
+.side-menu-logged p {
   margin-left: 10px;
 }
 
@@ -36,11 +39,19 @@
 }
 
 .create-button {
-  background-color: lightblue;
+  background-color: #00B8FF;
   height: 40px;
-  width: 240px;
+  width: 95%;
   border-radius: 20px;
   font-size: 16px;
   cursor: pointer;
   border: none;
 }
+
+.login-profile {
+  background-color: #7c5cFF;
+}
+
+/* .signup-button {
+  background-color: ; 
+} */

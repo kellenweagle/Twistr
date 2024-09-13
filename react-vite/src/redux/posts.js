@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const GET_ALL_POSTS = 'posts/getAllPosts';
+const CREATE_POST = 'posts/createPosts'
 
 const getAllPosts = (posts) => {
   return {
@@ -8,6 +9,14 @@ const getAllPosts = (posts) => {
     payload: posts
   }
 }
+const createPost = (post) => {
+  return {
+    type: CREATE_POST,
+    payload: post
+  }
+}
+
+
 
 export const getAllPostsThunk = () => async (dispatch) => {
   try {
@@ -21,6 +30,27 @@ export const getAllPostsThunk = () => async (dispatch) => {
     }
   } catch(error) {
     return error;
+  }
+}
+
+export const createPostThunk = (post) => async (dispatch) => {
+
+  try {
+      const options = {
+          method: 'POST',
+          header: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(review)
+      }
+      const res = await csrfFetch(`/api/posts/`, options)
+   
+      if (res.ok) {
+          const postData = await res.json();
+          await dispatch(createPost(postData));
+          return postData;
+      }
+
+  } catch (error) {
+      return error
   }
 }
 
@@ -39,6 +69,11 @@ const postsReducer = (state = initialState, action) => {
       for (let post of action.payload.posts) {
         newState.byId[post.id] = post;
       }
+      return newState;
+    case CREATE_POST:
+      newState = { ...state };
+      newState.allPosts = [action.payload, ...newState.allPosts]
+      newState.byId[action.payload.id] = action.payload;
       return newState;
     default:
       return state;
