@@ -48,7 +48,7 @@ function CreatePostModal() {
   return (
     <div className="create-post">
       <p className="create-h1">{user.username}</p>
-      <div className='form' >
+      <form className='form' onSubmit={(e) => handleSubmit(e)}>
         <div>
         <label className="label-input post">
           
@@ -64,8 +64,8 @@ function CreatePostModal() {
         {errors && <p>{errors}</p>}
 
         </div>
-        <button onclick={(e) => handleSubmit(e)} className="post-now">Post Now</button>
-      </div>
+        <button className="post-now" >Post</button>
+      </form>
     </div>
   );
 }
