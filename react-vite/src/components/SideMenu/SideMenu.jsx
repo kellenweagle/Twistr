@@ -14,6 +14,9 @@ import LoginFormModal from "../LoginFormModal/LoginFormModal";
 import SignupFormModal from "../SignupFormModal/SignupFormModal";
 import './SideMenu.css'
 
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import CreatePostModal from "../CreatePostModal";
+
 function SideMenu() {
   const sessionUser = useSelector(state => state.session.user);
   const [showMenu, setShowMenu] = useState(false);
