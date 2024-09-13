@@ -8,10 +8,12 @@ import { IoIosMail } from "react-icons/io";
 import { IoPersonSharp } from "react-icons/io5";
 import { HiCog8Tooth } from "react-icons/hi2";
 import { FaPencil } from "react-icons/fa6";
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal/LoginFormModal";
 import SignupFormModal from "../SignupFormModal/SignupFormModal";
+import * as sessionActions from '../../redux/session'
+import { useNavigate } from "react-router-dom";
 import './SideMenu.css'
 
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
@@ -21,6 +23,8 @@ function SideMenu() {
   const sessionUser = useSelector(state => state.session.user);
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!showMenu) return;
@@ -37,6 +41,13 @@ function SideMenu() {
   }, [showMenu]);
 
   const closeMenu = () => setShowMenu(false);
+
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch(sessionActions.thunkLogout());
+    closeMenu();
+    navigate('/');
+  };
 
   return (
     <div className="full-left-side">
@@ -59,8 +70,8 @@ function SideMenu() {
             <button className="inbox-button">
               <IoIosMail className="menu-icon"/> Inbox
             </button>
-            <button className="account-button">
-              <IoPersonSharp className="menu-icon"/> Account
+            <button className="account-button" onClick={logout}>
+              <IoPersonSharp className="menu-icon"/> Account Logout
             </button>
             <button className="settings-button">
               <HiCog8Tooth className="menu-icon"/> Settings
