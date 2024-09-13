@@ -45,7 +45,7 @@ function CreatePostModal() {
   };
 
   return (
-    <>
+    <div className="post-container">
       <h1>Create a Post</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
         <label>
@@ -60,7 +60,7 @@ function CreatePostModal() {
         {errors && <p>{errors}</p>}
         <button >Create Post</button>
       </form>
-    </>
+    </div>
   );
 }
 
