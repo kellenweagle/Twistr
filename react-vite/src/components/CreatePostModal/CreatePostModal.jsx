@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { createPostThunk } from "../../redux/posts";
+import './createPostModal.css'
 
 
 
@@ -45,21 +46,26 @@ function CreatePostModal() {
   };
 
   return (
-    <div className="post-container">
-      <h1>Create a Post</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <label>
-          post
-          <input
+    <div className="create-post">
+      <p className="create-h1">{user.username}</p>
+      <div className='form' >
+        <div>
+        <label className="label-input post">
+          
+          <textarea
+            className="post-input"
             type="text"
             value={post}
+            placeholder="Go ahead, put anything."
             onChange={(e) => setPost(e.target.value)}
             required
           />
         </label>
         {errors && <p>{errors}</p>}
-        <button >Create Post</button>
-      </form>
+
+        </div>
+        <button onclick={(e) => handleSubmit(e)} className="post-now">Post Now</button>
+      </div>
     </div>
   );
 }
