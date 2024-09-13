@@ -1,10 +1,10 @@
 .post-container {
   width: calc(100% - 72px);
   margin: 20px;
-  height: 400px;
   padding: 16px;
   background-color: white !important;
   border-radius: 8px;
+  font-family: sans-serif;
 }
 
 .post-header,
