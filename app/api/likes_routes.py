@@ -41,11 +41,12 @@ def like_post(id):
 def delete_like(id):
     
     user = current_user.to_dict()
-    likes = Like.query.filter_by(post_id=id, user_id=str(user["id"]))
-    print(likes.id, 'hhhhhhhhhh')
-    like = Like.query.get(likes.id)
-    print(like,'lllliiiikkkkeee')
-    if like.user_id == user['id']:
+    like = Like.query.filter_by(post_id=id, user_id=user['id'])[0]
+    
+    
+    if like:
+
+       
         db.session.delete(like)
         db.session.commit()
         return 'Delete Successful'
