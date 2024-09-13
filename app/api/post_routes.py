@@ -7,7 +7,7 @@ post_routes = Blueprint('posts', __name__)
 
 # Get all posts
 @post_routes.route('/')
-@login_required
+
 def posts():
   posts = Post.query.all()
 

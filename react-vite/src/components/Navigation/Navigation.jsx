@@ -32,7 +32,6 @@ function Navigation() {
             <FaSearch className="search-icon" />
             <input type="text" placeholder="Search Twistr" name='search' className="search"/>
           </form>
-          {/* <ProfileButton /> */}
         </li>
       </ul>
     </nav>
