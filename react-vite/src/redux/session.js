@@ -28,6 +28,7 @@ export const thunkLogin = (credentials) => async dispatch => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials)
   });
+  console.log("we are in the thunk !!", response)
 
   if(response.ok) {
     const data = await response.json();
