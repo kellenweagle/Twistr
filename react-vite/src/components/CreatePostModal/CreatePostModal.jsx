@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import createPostThunk from '../../redux/posts'
+import { createPostThunk } from "../../redux/posts";
+
+
 
 
 
@@ -10,7 +12,7 @@ function CreatePostModal() {
   const [post, setPost] = useState("");
   const user = useSelector(state => state.session.user)
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState();
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
@@ -19,19 +21,21 @@ function CreatePostModal() {
 
 
     const newPostData = ({
-        user_id: user.id,
+        
         post: post
     })
+    console.log(newPostData, 'post data')
 
     const newPost = await dispatch(createPostThunk(newPostData))
+    console.log(newPost, 'post after dispatch')
         
-        if (!newPost.ok && newPost.ok !== undefined) {
-            const data = await newPost.json();
+        if (newPost) {
             
-            setErrors(data.message)
+            
+            setErrors(newPost)
         } else {
-
-            closeModal()
+            
+          closeModal()
         }
 
 
@@ -41,9 +45,9 @@ function CreatePostModal() {
   };
 
   return (
-    <>
+    <div className="post-container">
       <h1>Create a Post</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <label>
           post
           <input
@@ -53,10 +57,10 @@ function CreatePostModal() {
             required
           />
         </label>
-        {errors.post && <p>{errors.post}</p>}
+        {errors && <p>{errors}</p>}
         <button >Create Post</button>
       </form>
-    </>
+    </div>
   );
 }
 
