@@ -23,14 +23,15 @@ export const thunkAuthenticate = () => async (dispatch) => {
 };
 
 export const thunkLogin = (credentials) => async dispatch => {
+  console.log("step 2")
   const response = await fetch("/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials)
   });
-  console.log("we are in the thunk !!", response)
-
+  console.log(response)
   if(response.ok) {
+    console.log("step 3")
     const data = await response.json();
     dispatch(setUser(data));
   } else if (response.status < 500) {
