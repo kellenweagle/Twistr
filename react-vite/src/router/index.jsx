@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
+import NotFoundPage from '../components/NotfoundPage';
 import Layout from './Layout';
 import Splash from '../screens/splash/Splash';
 
@@ -13,13 +14,17 @@ export const router = createBrowserRouter([
         element: <Splash />,
       },
       {
-        path: "login",
+        path: "/login",
         element: <LoginFormPage />,
       },
       {
-        path: "signup",
+        path: "/signup",
         element: <SignupFormPage />,
       },
+      {
+        path: '/*',
+        element: <NotFoundPage />
+      }
     ],
   },
 ]);

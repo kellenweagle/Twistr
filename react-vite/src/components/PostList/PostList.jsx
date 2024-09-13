@@ -29,8 +29,8 @@ const PostList = () => {
   if (!posts) {
     return <h1>Loading</h1>
   }
-  console.log('post state---', posts)
 
+  
   return (
     <div className="post-list-container">
 

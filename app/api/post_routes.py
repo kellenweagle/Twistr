@@ -7,7 +7,6 @@ post_routes = Blueprint('posts', __name__)
 
 # Get all posts
 @post_routes.route('/')
-
 def posts():
   posts = Post.query.all()
 

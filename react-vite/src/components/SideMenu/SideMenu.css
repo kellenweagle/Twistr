@@ -48,10 +48,22 @@
   border: none;
 }
 
-.login-profile {
-  background-color: #7c5cFF;
+.login-profile, .signup-button {
+  color: rgba(255, 255, 255, .65);
+  cursor: pointer;
+  width: 240px;
+  border: none;
+  display: flex;
+  justify-content: start;
+  font-size: 16px;
+  height: 40px;
+  align-items: center;
+  text-decoration: none;
+  background-color: #001935;
+  font-family: sans-serif;
+  list-style-type: none;
 }
 
-/* .signup-button {
-  background-color: ; 
-} */
+.login-profile:hover, .signup-button:hover {
+  background-color: rgba(255, 255, 255, .07);
+}
