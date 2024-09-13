@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsersThunk } from '../../redux/user';
 import './PostTile.css';
 import { useEffect, useState } from 'react';
+import { BsThreeDots } from "react-icons/bs";
+import { FaRegComment, FaRegHeart } from "react-icons/fa";
 
 const PostTile = (post) => {
   post = post.post
@@ -34,13 +36,22 @@ const PostTile = (post) => {
         <div className="post-header-left">
           <div className="profile-pic">{user.username[0].toUpperCase()}</div>
           <div className="post-info">
-            <div className="username">{user.username}</div>
-            <div className="post-date">tbd</div>
+            <div className="username">{user.username.toLowerCase()}</div>
+            <div className="post-date">Aug 17</div>
           </div>
         </div>
-        <div className="post-options">...</div>
+        <div className="post-options"><BsThreeDots className='post-options-dots'/></div>
       </div>
-      <div className="post-main">{post.post}</div>
+      <div className="post-main">
+        <pre>{post.post}</pre>
+      </div>
+      <div className="post-footer">
+        <button className="likes-count"><span>32</span> likes</button>
+        <div className="like-comment">
+          <FaRegComment className='comment'/>
+          <FaRegHeart className='like'/>
+        </div>
+      </div>
     </div>
   )
 }
