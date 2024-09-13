@@ -79,9 +79,10 @@ function SideMenu() {
             </button>
           </div>
           <div>
-            <button className="create-button">
-              <FaPencil className="menu-icon"/> Create
-            </button>
+            <OpenModalButton
+            buttonText={<FaPencil />}
+            modalComponent={<CreatePostModal />}
+             />
           </div>
         </>
         ) : (
