@@ -1,0 +1,9 @@
+main {
+  display: flex;
+  justify-content: center;
+  width: 1120px;
+}
+/* 
+.side-menu {
+  position: fixed;
+} */

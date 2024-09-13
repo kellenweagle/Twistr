@@ -12,15 +12,9 @@ class Post(db.Model):
     __table_args__ = {'schema': SCHEMA}
 
 
-  id = db.Column(
-    db.Integer, primary_key=True
-  )
-  post = db.Column(
-    db.String(1000)
-  )
-  user_id = db.Column(
-    db.Integer, db.ForeignKey('users.id'), nullable=False
-  )
+  id = db.Column(db.Integer, primary_key=True)
+  post = db.Column(db.String(10000), nullable=True)
+  user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
   # created_at = db.Column(
   #   db.DateTime, default=datetime.now
   # )
