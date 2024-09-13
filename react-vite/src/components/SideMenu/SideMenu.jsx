@@ -11,36 +11,46 @@ import { HiCog8Tooth } from "react-icons/hi2";
 import { FaPencil } from "react-icons/fa6";
 import './SideMenu.css'
 
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import CreatePostModal from "../CreatePostModal";
+
 function SideMenu() {
   return (
     <div className="full-left-side">
       <div className="side-menu">
         <button className="home-button">
-          <GoHomeFill className="menu-icon"/> Home
+          <GoHomeFill className="menu-icon" /> Home
         </button>
         <button className="explore-button">
-          <FaRegCompass className="menu-icon"/> Explore
+          <FaRegCompass className="menu-icon" /> Explore
         </button>
         <button className="activity-button">
-          <BsLightningChargeFill className="menu-icon"/> Activity
+          <BsLightningChargeFill className="menu-icon" /> Activity
         </button>
         <button className="messages-button">
-          <RiChatSmile2Fill className="menu-icon"/> Messages
+          <RiChatSmile2Fill className="menu-icon" /> Messages
         </button>
         <button className="inbox-button">
-          <IoIosMail className="menu-icon"/> Inbox
+          <IoIosMail className="menu-icon" /> Inbox
         </button>
         <button className="account-button">
-          <IoPersonSharp className="menu-icon"/> Account
+          <IoPersonSharp className="menu-icon" /> Account
         </button>
         <button className="settings-button">
-          <HiCog8Tooth className="menu-icon"/> Settings
+          <HiCog8Tooth className="menu-icon" /> Settings
         </button>
       </div>
       <div>
-        <button className="create-button">
-          <FaPencil className="menu-icon"/> Create
-        </button>
+        
+          <OpenModalButton
+            className='create-button'
+            buttonText={<FaPencil className="menu-icon" />} Create
+            modalComponent={<CreatePostModal />}
+            preventDefault
+            stopPropagation
+          />
+          
+        
       </div>
     </div>
   )

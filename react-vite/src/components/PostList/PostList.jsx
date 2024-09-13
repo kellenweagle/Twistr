@@ -5,9 +5,32 @@ import { FaLink } from "react-icons/fa";
 import { IoChatboxEllipses } from "react-icons/io5";
 import { FaHeadphonesSimple } from "react-icons/fa6";
 import { FaVideo } from "react-icons/fa";
-import './PostList.css'
+import './PostList.css';
+import PostTile from "../PostTile";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { getAllPostsThunk } from "../../redux/posts";
 
 const PostList = () => {
+  const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false);
+  let posts = useSelector(state => state.postState.allPosts);
+
+  useEffect(() => {
+    const getData = async () => {
+      await dispatch(getAllPostsThunk());
+      setIsLoaded(true);
+    }
+    if (!isLoaded && !posts.length) {
+      getData()
+    }
+  }, [dispatch, isLoaded, posts])
+
+  if (!posts) {
+    return <h1>Loading</h1>
+  }
+  console.log('post state---', posts)
+
   return (
     <div className="post-list-container">
 
@@ -41,7 +64,13 @@ const PostList = () => {
           Video
         </li>
       </ul>
-
+      <div className="posts">
+        {posts.map((post, idx) => (
+          <div key={`${idx}-${post.user_id}`} className="post-tile">
+            <PostTile post={post}/>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
