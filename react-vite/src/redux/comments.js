@@ -89,7 +89,7 @@ export const updateCommentThunk = (id, commentId, comment) => async (dispatch) =
     }
 }
 
-export const deleteSpotThunk = (id, comment) => async (dispatch) => {
+export const deleteCommentThunk = (id, comment) => async (dispatch) => {
     try {
 
 
