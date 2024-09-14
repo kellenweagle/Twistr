@@ -20,16 +20,7 @@ function CommentTile(post) {
 
   const [isLoaded, setIsLoaded] = useState(false)
 
-  useEffect(() => {
-    if(!isLoaded) {
-      const getData = async() => {
-        await dispatch(getAllPostsThunk());
-        await dispatch(getAllUsersThunk());
-        setIsLoaded(true);
-      }
-      getData()
-    }
-  }, [dispatch, post, isLoaded]);
+  
 
   let user = users.find((user) => user.id === post.user_id);
 
