@@ -166,14 +166,14 @@ const commentsReducer = (state = initialState, action) => {
 
                 return comment.id !== action.payload.id
             })
-            
+
             newState.allComments = filteredComments
 
             const newById = { ...newState.byId };
             delete newById[action.payload.id];
             newState.byId = newById;
 
-            
+
             return newState
         }
         default:

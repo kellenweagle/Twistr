@@ -5,15 +5,11 @@ import './PostTile.css';
 import { useEffect, useState, useRef } from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
-
-import CommentTile from '../CommentTile/CommentTile';
+import CommentsList from '../CommentsList';
 import { deletePostThunk } from '../../redux/posts';
 
-
-const PostTile = ({post}) => {
-  
-  console.log(post, 'post------------------')
-  
+const PostTile = (post) => {
+  post = post.post
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
   const [showComments, setShowComments] = useState(false);
@@ -23,6 +19,7 @@ const PostTile = ({post}) => {
 
   const toggleComments = (e) => {
     e.stopPropagation();
+    console.log('togglecom')
     setShowComments(!showComments);
   };
 
@@ -40,10 +37,10 @@ const PostTile = ({post}) => {
     return () => document.removeEventListener('click', closeComments);
   }, [showComments])
 
-  const closeComments = () => setShowComments(false);
+  // const closeComments = () => setShowComments(false);
 
   useEffect(() => {
-    
+
       const getData = async () => {
         await dispatch(getAllUsersThunk());
         await dispatch(getAllCommentsThunk(post.id));
@@ -53,7 +50,7 @@ const PostTile = ({post}) => {
         getData();
 
       }
-    
+
   }, [dispatch, loaded]);
   // post = post.post
   const handleSubmit = async (e) => {
@@ -71,7 +68,7 @@ const PostTile = ({post}) => {
 
   if(!user) return <h1>User not found</h1>;
 
-  const commentBtnClassName = 'comment' + (showComments ? 'comment-list-active' : 'hidden')
+  const commentBtnClassName = 'comment' + (showComments ? ' comment-list-active' : ' hidden')
 
   return (
     <div className="post-container">
@@ -97,9 +94,7 @@ const PostTile = ({post}) => {
         <button
       onClick={handleSubmit}>DELETE</button>
       </div>
-
-        <CommentTile post={post}/>
-
+      <CommentsList className={commentBtnClassName}/>
     </div>
   )
 }
