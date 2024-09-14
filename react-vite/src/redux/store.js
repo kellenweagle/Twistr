@@ -9,12 +9,16 @@ import sessionReducer from "./session";
 import postsReducer from "./posts";
 import userReducer from "./user";
 import commentsReducer from "./comments";
+import likesReducer from "./likes";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   postState: postsReducer,
   userState: userReducer,
   commentsState: commentsReducer,
+  likesState: likesReducer
+
+
 
 });
 
