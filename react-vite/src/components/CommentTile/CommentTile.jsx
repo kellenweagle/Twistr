@@ -1,31 +1,53 @@
 import './CommentTile.css'
-import { getCommentsThunk } from '../../redux/comments';
 import { getAllPostsThunk } from '../../redux/posts';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getAllUsersThunk } from '../../redux/user';
+import { useSelector } from 'react-redux';
+import { BsThreeDots } from "react-icons/bs";
 
-function CommentTile() {
+function CommentTile(post) {
+  post = post.post
+  const users = useSelector(state => state.userState.allUsers);
+
+  const comment = {
+    comment: "This is a test comment",
+    user_id: 1,
+    post_id: 1
+  }
+  
   const dispatch = useDispatch();
-  const posts = useSelector(state => state.postState.allPosts);
-  const comments = useSelector((state) => state.commentState.allComments)
 
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    const getData = async() => {
-      await dispatch(getAllPostsThunk());
-      await dispatch(getCommentsThunk(posts.id));
-      setIsLoaded(true);
-    }
-
-    if(!isLoaded && !posts.length) {
+    if(!isLoaded) {
+      const getData = async() => {
+        await dispatch(getAllPostsThunk());
+        await dispatch(getAllUsersThunk());
+        setIsLoaded(true);
+      }
       getData()
     }
-  }, [dispatch, posts, isLoaded, comments])
+  }, [dispatch, post, isLoaded]);
+
+  let user = users.find((user) => user.id === post.user_id);
+
+  if(!user) return <h1>User not found</h1>;
 
   return (
     <div className='comment-tile'>
-      <h1>{comments.comment}</h1>
+      <div className='profile-pic-comment'>{user.username[0].toUpperCase()}</div>
+      <div className='comment-main'>
+        <div className='comment-left'>
+          <div className='comment-top-line'>
+            <div className='comment-username'>{user.username.toLowerCase()}</div>
+            <div className='comment-date'>Aug 17</div>
+          </div>
+          <div className='comment-text'>{comment.comment}</div>
+        </div>
+        <div className="comment-options"><BsThreeDots className='comment-options-dots'/></div>
+      </div>
     </div>
   )
 }

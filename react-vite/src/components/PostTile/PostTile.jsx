@@ -1,20 +1,24 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsersThunk } from '../../redux/user';
+import { getCommentsThunk } from '../../redux/comments';
 import './PostTile.css';
 import { useEffect, useState } from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
+import CommentTile from '../CommentTile/CommentTile';
 
 const PostTile = (post) => {
   post = post.post
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   let users = useSelector(state => state.userState.allUsers);
+  let comments = useSelector((state) => state.commentsState.allComments)
 
   useEffect(() => {
     if (!isLoaded) {
       const getData = async () => {
         await dispatch(getAllUsersThunk());
+        await dispatch(getCommentsThunk(post.id));
         setIsLoaded(true);
       };
       getData();
@@ -52,6 +56,7 @@ const PostTile = (post) => {
           <FaRegHeart className='like'/>
         </div>
       </div>
+        <CommentTile post={post}/>
     </div>
   )
 }

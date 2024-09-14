@@ -10,9 +10,11 @@ const getComments = (comments) => ({
 export const getCommentsThunk = (postId) => async(dispatch) => {
   try {
     const res = await csrfFetch(`/api/comments/${postId}`);
+    console.log("---", postId)
     if(res.ok) {
       const data = await res.json();
       await dispatch(getComments(data))
+      console.log("we are in here")
       return data;
 
     } else {
@@ -33,13 +35,16 @@ function commentsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_COMMENTS: {
       newState = {...state}
-      newState.allComments = action.payload.Comments;
+      newState.allComments = action.payload.comments;
 
-      for(let comment of action.payload.Comments) {
+      for(let comment of action.payload.comments) {
         newState.byCommentId[comment.id] = comment;
       }
       return newState;
     }
+
+    default:
+      return state;
   }
 }
 
