@@ -6,13 +6,13 @@ from app.forms import CommentForm
 comment_routes = Blueprint('comments', __name__)
 
 # get all comments
-@comment_routes.route('/<int:id>')
+@comment_routes.route('/<int:id>/comments')
 def get_comments(id):
   comments = Comment.query.filter_by(post_id=id).all()
   return {'comments': [comment.to_dict() for comment in comments]}
 
 # create a comments
-@comment_routes.route('/<int:id>', methods=['POST'])
+@comment_routes.route('/<int:id>/comments', methods=['POST'])
 @login_required
 def create_comment(id):
   form = CommentForm()
@@ -30,9 +30,9 @@ def create_comment(id):
   return form.errors, 401
 
 # update a comment
-@comment_routes.route('/<int:id>', methods=['PUT'])
+@comment_routes.route('/<int:id>/comments/<int:commentId>', methods=['PUT'])
 @login_required
-def update_comment(id):
+def update_comment(commentId):
   comment = Comment.query.get(id)
   form = CommentForm()
   form['csrf_token'].data = request.cookies['csrf_token']
@@ -46,10 +46,10 @@ def update_comment(id):
   return "Comment doesn't belong to user", 401
 
 # delete a comment
-@comment_routes.route('/<int:id>', methods=['DELETE'])
+@comment_routes.route('/<int:id>/comments/<int:commentId>', methods=['DELETE'])
 @login_required
-def delete_comment(id):
-  comment = Comment.query.get(id)
+def delete_comment(commentId):
+  comment = Comment.query.get(commentId)
   user = current_user.to_dict()
 
   if str(comment.user_id) == str(user['id']):
