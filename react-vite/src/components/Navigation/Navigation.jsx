@@ -1,8 +1,6 @@
 import { NavLink } from "react-router-dom";
-// import ProfileButton from "./ProfileButton";
-import "./Navigation.css";
-// import { FaSearch } from "react-icons/fa";
 import { FaSearch } from 'react-icons/fa'
+import "./Navigation.css";
 
 function Navigation() {
   return (

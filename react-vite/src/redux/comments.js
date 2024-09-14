@@ -89,6 +89,37 @@ export const updateCommentThunk = (id, commentId, comment) => async (dispatch) =
     }
 }
 
+export const deleteSpotThunk = (id, comment) => async (dispatch) => {
+    try {
+
+
+        const options = {
+            method: 'DELETE',
+            header: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(spot)
+        }
+
+
+        const deletedComment = await csrfFetch(`/api/posts/${id}/comments/${comment.id}`, options)
+
+
+
+        if (deletedComment.ok) {
+
+
+            const data = await deletedComment.json();
+
+
+            await dispatch(deleteComment(data));
+
+            return data;
+        } else throw deletedComment
+
+    } catch (error) {
+        return error;
+    }
+}
+
 const initialState = {
     allComments: [],
     byId: {}
