@@ -1,10 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsersThunk } from '../../redux/user';
+import { getCommentsThunk } from '../../redux/comments';
 import './PostTile.css';
 import { useEffect, useState, useRef } from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
-import CommentsTile from '../CommentsTile/CommentsTile';
+
+import CommentTile from '../CommentTile/CommentTile';
+import { deletePostThunk } from '../../redux/posts';
+
 
 const PostTile = (post) => {
   post = post.post
@@ -13,6 +17,7 @@ const PostTile = (post) => {
   const [showComments, setShowComments] = useState(false);
   const ulRef = useRef();
   let users = useSelector(state => state.userState.allUsers);
+  let comments = useSelector((state) => state.commentsState.allComments)
 
   const toggleComments = (e) => {
     e.stopPropagation();
@@ -39,11 +44,19 @@ const PostTile = (post) => {
     if (!isLoaded) {
       const getData = async () => {
         await dispatch(getAllUsersThunk());
+        await dispatch(getCommentsThunk(post.id));
         setIsLoaded(true);
       };
       getData();
     }
   }, [dispatch, isLoaded]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await dispatch(deletePostThunk(post.id))
+
+  };
 
   if(!post || !users || users.length === 0) {
     return <h1>Loading...</h1>
@@ -76,8 +89,12 @@ const PostTile = (post) => {
           <FaRegComment className={commentBtnClassName} onClick={toggleComments}/>
           <FaRegHeart className='like'/>
         </div>
+        <button
+      onClick={handleSubmit}>DELETE</button>
       </div>
-      <CommentsTile className={commentBtnClassName}/>
+
+        <CommentTile post={post}/>
+
     </div>
   )
 }

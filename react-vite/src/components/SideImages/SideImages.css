@@ -30,6 +30,7 @@
 
 .blog-photo-and-text {
   display: flex;
+  padding-top: 25px;
   background-color: transparent !important;
 }
 

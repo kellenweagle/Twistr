@@ -1,0 +1,61 @@
+.comment-tile {
+  display: flex;
+  flex-direction: row;
+  margin-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.13);
+  padding: 1rem 0 0 0;
+  font-family: sans-serif;
+}
+
+.profile-pic-comment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(112, 182, 6);
+  color: white;
+  font-family: sans-serif;
+  font-size: 1.25rem;
+  font-weight: bold;
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.comment-main {
+  background-color: #f2f2f1;
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.comment-options {
+  cursor: pointer;
+}
+
+.comment-options-dots {
+  font-size: 1.3rem;
+  color: rgba(0, 0, 0, 0.30);
+}
+
+.comment-username {
+  font-weight: bold;
+  font-size: .875rem;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.comment-top-line {
+  display: flex;
+  flex-direction: row;
+}
+
+.comment-date {
+  color: rgba(0, 0, 0, 0.40);
+  font-size: smaller;
+}
