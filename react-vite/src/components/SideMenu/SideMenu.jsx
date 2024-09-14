@@ -3,12 +3,12 @@ import { useRef } from "react";
 import { GoHomeFill } from "react-icons/go";
 import { FaRegCompass } from "react-icons/fa";
 import { BsLightningChargeFill } from "react-icons/bs";
-import { RiChatSmile2Fill } from "react-icons/ri";
+import { RiChatSmile2Fill, RiLoginBoxLine } from "react-icons/ri";
 import { IoIosMail } from "react-icons/io";
 import { IoPersonSharp } from "react-icons/io5";
 import { HiCog8Tooth } from "react-icons/hi2";
-import { FaPencil } from "react-icons/fa6";
-import { RiLoginBoxLine } from "react-icons/ri";
+import { FaPencil, FaRegHandPointer } from "react-icons/fa6";
+import { FiLogIn } from "react-icons/fi";
 import { useSelector, useDispatch } from 'react-redux'
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal/LoginFormModal";
@@ -78,9 +78,10 @@ function SideMenu() {
               <HiCog8Tooth className="menu-icon"/> Settings
             </button>
           </div>
-          <div>
+          <div className="create-btn-container">
             <OpenModalButton
-            buttonText={<FaPencil />}
+            className="create-button"
+            buttonText={<><FaPencil /> <span>Create</span></>}
             modalComponent={<CreatePostModal />}
              />
           </div>
@@ -89,14 +90,14 @@ function SideMenu() {
          <div className="not-logged">
             <div className="login-profile">
               <OpenModalMenuItem
-                itemText="Log In"
+                itemText={<><FiLogIn className="login-icon"/> Login</>}
                 onItemClick={closeMenu}
                 modalComponent={<LoginFormModal />}
               />
             </div>
             <div className="signup-button">
               <OpenModalMenuItem
-                itemText="Sign Up"
+                itemText={<><FaRegHandPointer className="signup-icon"/> Sign Up</>}
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}
               />

@@ -1,20 +1,20 @@
 import { csrfFetch } from "./csrf";
 
 const GET_ALL_POSTS = 'posts/getAllPosts';
-const CREATE_POST = 'posts/createPosts'
+const CREATE_POST = 'posts/createPost'
 
-const getAllPosts = (posts) => {
-  return {
+const getAllPosts = (posts) => ({
+  
     type: GET_ALL_POSTS,
     payload: posts
-  }
-}
-const createPost = (post) => {
-  return {
+  
+})
+const createPost = (post) => ({
+  
     type: CREATE_POST,
     payload: post
-  }
-}
+  
+})
 
 
 
@@ -34,20 +34,21 @@ export const getAllPostsThunk = () => async (dispatch) => {
 }
 
 export const createPostThunk = (post) => async (dispatch) => {
-
+  
   try {
+    console.log(post, 'in dispatch')
       const options = {
           method: 'POST',
           header: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(review)
+          body: JSON.stringify(post)
       }
       const res = await csrfFetch(`/api/posts/`, options)
-   
+
       if (res.ok) {
           const postData = await res.json();
+          console.log(postData)
           await dispatch(createPost(postData));
-          return postData;
-      }
+      } else throw res;
 
   } catch (error) {
       return error

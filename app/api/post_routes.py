@@ -16,15 +16,19 @@ def posts():
 @post_routes.route('/', methods=['POST'])
 @login_required
 def post():
+  
   form = PostForm()
+  
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     user = current_user.to_dict()
+    print(user,'user')
 
     post = Post(
       post=form.data['post'],
       user_id=str(user["id"])
     )
+    print(post, 'post')
     db.session.add(post)
     db.session.commit()
     return post.to_dict()

@@ -29,5 +29,6 @@ class Post(db.Model):
   def to_dict(self):
     return {
       'id': self.id,
-      'post': self.post
+      'post': self.post,
+      'user_id': self.user_id
     }
