@@ -16,7 +16,7 @@ const PostTile = ({post}) => {
   
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-  const [showComments, setShowComments] = useState(false);
+  const [showComments, setShowComments] = useState(true);
   const ulRef = useRef();
   let users = useSelector(state => state.userState.allUsers);
   let comments = useSelector((state) => state.commentsState.allComments)
@@ -71,7 +71,7 @@ const PostTile = ({post}) => {
 
   if(!user) return <h1>User not found</h1>;
 
-  const commentBtnClassName = 'comment' + (showComments ? 'comment-list-active' : 'hidden')
+  const commentBtnClassName = 'comment-' + (showComments ? 'list-active' : 'hidden')
 
   return (
     <div className="post-container">
@@ -97,8 +97,13 @@ const PostTile = ({post}) => {
         <button
       onClick={handleSubmit}>DELETE</button>
       </div>
-
-        <CommentTile post={post}/>
+      {comments.map((comment, idx) => (
+          <div key={`${idx}-${comment.user_id}`} className="comment-tile">
+            {console.log(comment.user_id)}
+            <CommentTile comment={comment} post={post}/>
+          </div>
+        ))}
+        
 
     </div>
   )
