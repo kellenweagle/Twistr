@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsersThunk } from '../../redux/user';
-import { getCommentsThunk } from '../../redux/comments';
+import { getAllCommentsThunk } from '../../redux/comments';
 import './PostTile.css';
 import { useEffect, useState, useRef } from 'react';
 import { BsThreeDots } from "react-icons/bs";
@@ -10,10 +10,12 @@ import CommentTile from '../CommentTile/CommentTile';
 import { deletePostThunk } from '../../redux/posts';
 
 
-const PostTile = (post) => {
-  post = post.post
+const PostTile = ({post}) => {
+  
+  console.log(post, 'post------------------')
+  
   const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const ulRef = useRef();
   let users = useSelector(state => state.userState.allUsers);
@@ -41,16 +43,19 @@ const PostTile = (post) => {
   const closeComments = () => setShowComments(false);
 
   useEffect(() => {
-    if (!isLoaded) {
+    
       const getData = async () => {
         await dispatch(getAllUsersThunk());
-        await dispatch(getCommentsThunk(post.id));
-        setIsLoaded(true);
+        await dispatch(getAllCommentsThunk(post.id));
+        setLoaded(true);
       };
-      getData();
-    }
-  }, [dispatch, isLoaded]);
+      if (!loaded) {
+        getData();
 
+      }
+    
+  }, [dispatch, loaded]);
+  // post = post.post
   const handleSubmit = async (e) => {
     e.preventDefault();
 

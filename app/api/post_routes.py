@@ -57,7 +57,8 @@ def delete(id):
   post = Post.query.get(id)
   user = current_user.to_dict()
   if str(post.user_id) == str(user['id']):
+    post_data = post.to_dict()
     db.session.delete(post)
     db.session.commit()
-    return 'Delete Successful'
+    return post_data
   return 'Post does not belong to user', 401

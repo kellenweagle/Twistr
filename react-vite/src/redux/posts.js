@@ -14,9 +14,9 @@ const createPost = (post) => ({
   payload: post
 })
 
-const deletePost = (deletedPost) => ({
+const deletePost = (post) => ({
   type: DELETE_POST,
-  payload: deletedPost
+  payload: post
 })
 
 
