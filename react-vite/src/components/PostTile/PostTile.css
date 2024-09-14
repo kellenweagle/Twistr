@@ -44,6 +44,13 @@
 
 .post-options-dots {
   font-size: 1.3rem;
+  background-color: white;
+  border-radius: 1rem;
+  padding: .25rem;
+}
+
+.post-options-dots:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .profile-pic {
