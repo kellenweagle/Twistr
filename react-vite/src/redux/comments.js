@@ -33,13 +33,15 @@ function commentsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_COMMENTS: {
       newState = {...state}
-      newState.allComments = action.payload.Comments;
+      newState.allComments = action.payload.comments;
 
-      for(let comment of action.payload.Comments) {
+      for(let comment of action.payload.comments) {
         newState.byCommentId[comment.id] = comment;
       }
       return newState;
     }
+    default:
+      return state;
   }
 }
 

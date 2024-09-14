@@ -4,8 +4,7 @@ import './PostTile.css';
 import { useEffect, useState, useRef } from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
-import CommentsTile from '../CommentsTile/CommentsTile';
-
+import CommentsList from '../CommentsList';
 const PostTile = (post) => {
   post = post.post
   const dispatch = useDispatch();
@@ -16,6 +15,7 @@ const PostTile = (post) => {
 
   const toggleComments = (e) => {
     e.stopPropagation();
+    console.log('togglecom')
     setShowComments(!showComments);
   };
 
@@ -33,7 +33,7 @@ const PostTile = (post) => {
     return () => document.removeEventListener('click', closeComments);
   }, [showComments])
 
-  const closeComments = () => setShowComments(false);
+  // const closeComments = () => setShowComments(false);
 
   useEffect(() => {
     if (!isLoaded) {
@@ -53,7 +53,7 @@ const PostTile = (post) => {
 
   if(!user) return <h1>User not found</h1>;
 
-  const commentBtnClassName = 'comment' + (showComments ? 'comment-list-active' : 'hidden')
+  const commentBtnClassName = 'comment' + (showComments ? ' comment-list-active' : ' hidden')
 
   return (
     <div className="post-container">
@@ -77,7 +77,7 @@ const PostTile = (post) => {
           <FaRegHeart className='like'/>
         </div>
       </div>
-      <CommentsTile className={commentBtnClassName}/>
+      <CommentsList className={commentBtnClassName}/>
     </div>
   )
 }
