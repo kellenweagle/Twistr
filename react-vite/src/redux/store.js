@@ -14,7 +14,9 @@ const rootReducer = combineReducers({
   session: sessionReducer,
   postState: postsReducer,
   userState: userReducer,
+
   commentsState: commentsReducer,
+
 });
 
 let enhancer;
