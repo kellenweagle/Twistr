@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import CommentTile from '../CommentTile/CommentTile';
+import { deletePostThunk } from '../../redux/posts';
 
 const PostTile = (post) => {
   post = post.post
@@ -24,6 +25,13 @@ const PostTile = (post) => {
       getData();
     }
   }, [dispatch, isLoaded]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await dispatch(deletePostThunk(post.id))
+
+  };
 
   if(!post || !users || users.length === 0) {
     return <h1>Loading...</h1>
@@ -55,6 +63,8 @@ const PostTile = (post) => {
           <FaRegComment className='comment'/>
           <FaRegHeart className='like'/>
         </div>
+        <button
+      onClick={handleSubmit}>DELETE</button>
       </div>
         <CommentTile post={post}/>
     </div>

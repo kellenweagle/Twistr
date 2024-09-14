@@ -4,10 +4,6 @@ import { useModal } from "../../context/Modal";
 import { createPostThunk } from "../../redux/posts";
 import './createPostModal.css'
 
-
-
-
-
 function CreatePostModal() {
   const dispatch = useDispatch();
   const [post, setPost] = useState("");
@@ -20,38 +16,25 @@ function CreatePostModal() {
     e.preventDefault();
     e.stopPropagation();
 
-
     const newPostData = ({
-        
-        post: post
+      post: post
     })
-    console.log(newPostData, 'post data')
 
     const newPost = await dispatch(createPostThunk(newPostData))
-    console.log(newPost, 'post after dispatch')
         
-        if (newPost) {
-            
-            
-            setErrors(newPost)
-        } else {
-            
-          closeModal()
-        }
-
-
-   
-
-    
+    if (newPost) {
+      setErrors(newPost)
+    } else {
+      closeModal()
+    }
   };
 
   return (
     <div className="create-post">
-      <p className="create-h1">{user.username}</p>
+      <p className="create-post-username">{user.username.toLowerCase()}</p>
       <form className='form' onSubmit={(e) => handleSubmit(e)}>
         <div>
         <label className="label-input post">
-          
           <textarea
             className="post-input"
             type="text"
@@ -62,9 +45,8 @@ function CreatePostModal() {
           />
         </label>
         {errors && <p>{errors}</p>}
-
         </div>
-        <button className="post-now" >Post</button>
+        <button className="post-now">Post</button>
       </form>
     </div>
   );
