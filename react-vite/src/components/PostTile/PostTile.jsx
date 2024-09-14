@@ -1,15 +1,39 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsersThunk } from '../../redux/user';
 import './PostTile.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
+import CommentsTile from '../CommentsTile/CommentsTile';
 
 const PostTile = (post) => {
   post = post.post
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const ulRef = useRef();
   let users = useSelector(state => state.userState.allUsers);
+
+  const toggleComments = (e) => {
+    e.stopPropagation();
+    setShowComments(!showComments);
+  };
+
+  useEffect(() => {
+    if (!showComments) return;
+
+    const closeComments = (e) => {
+      if (!ulRef.current.contains(e.target)) {
+        setShowComments(false)
+      }
+    };
+
+    document.addEventListener('click', closeComments);
+
+    return () => document.removeEventListener('click', closeComments);
+  }, [showComments])
+
+  const closeComments = () => setShowComments(false);
 
   useEffect(() => {
     if (!isLoaded) {
@@ -29,6 +53,7 @@ const PostTile = (post) => {
 
   if(!user) return <h1>User not found</h1>;
 
+  const commentBtnClassName = 'comment' + (showComments ? 'comment-list-active' : 'hidden')
 
   return (
     <div className="post-container">
@@ -48,10 +73,11 @@ const PostTile = (post) => {
       <div className="post-footer">
         <button className="likes-count"><span>32</span> likes</button>
         <div className="like-comment">
-          <FaRegComment className='comment'/>
+          <FaRegComment className={commentBtnClassName} onClick={toggleComments}/>
           <FaRegHeart className='like'/>
         </div>
       </div>
+      <CommentsTile className={commentBtnClassName}/>
     </div>
   )
 }
