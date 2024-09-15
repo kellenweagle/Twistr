@@ -1,49 +1,49 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsersThunk } from '../../redux/user';
+import { getAllCommentsThunk } from '../../redux/comments';
 import './PostTile.css';
 import { useEffect, useState, useRef } from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
-import CommentsTile from '../CommentsTile/CommentsTile';
+import CommentsList from '../CommentsList';
+// import { deletePostThunk } from '../../redux/posts';
 
 const PostTile = (post) => {
   post = post.post
   const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [commentsLoading, setCommentsLoading] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  const ulRef = useRef();
+  // const ulRef = useRef();
   let users = useSelector(state => state.userState.allUsers);
+  let comments = useSelector((state) => state.commentsState.allComments)
 
-  const toggleComments = (e) => {
-    e.stopPropagation();
+  const handleCommentToggle = () => {
+    // e.stopPropagation();
     setShowComments(!showComments);
   };
 
   useEffect(() => {
-    if (!showComments) return;
 
-    const closeComments = (e) => {
-      if (!ulRef.current.contains(e.target)) {
-        setShowComments(false)
-      }
-    };
-
-    document.addEventListener('click', closeComments);
-
-    return () => document.removeEventListener('click', closeComments);
-  }, [showComments])
-
-  const closeComments = () => setShowComments(false);
-
-  useEffect(() => {
-    if (!isLoaded) {
       const getData = async () => {
+        setCommentsLoading(true);
         await dispatch(getAllUsersThunk());
-        setIsLoaded(true);
+        await dispatch(getAllCommentsThunk(post.id));
+        setLoaded(true);
+        setCommentsLoading(false);
       };
-      getData();
-    }
-  }, [dispatch, isLoaded]);
+      if (!loaded || showComments) {
+        getData();
+      }
+
+  }, [dispatch, loaded, post.id, showComments]);
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   await dispatch(deletePostThunk(post.id))
+
+  // };
 
   if(!post || !users || users.length === 0) {
     return <h1>Loading...</h1>
@@ -52,8 +52,6 @@ const PostTile = (post) => {
   let user = users.find((user) => user.id === post.user_id);
 
   if(!user) return <h1>User not found</h1>;
-
-  const commentBtnClassName = 'comment' + (showComments ? 'comment-list-active' : 'hidden')
 
   return (
     <div className="post-container">
@@ -73,11 +71,18 @@ const PostTile = (post) => {
       <div className="post-footer">
         <button className="likes-count"><span>32</span> likes</button>
         <div className="like-comment">
-          <FaRegComment className={commentBtnClassName} onClick={toggleComments}/>
+          <FaRegComment className="comment" onClick={handleCommentToggle}/>
           <FaRegHeart className='like'/>
         </div>
+        {/* <button onClick={handleSubmit}>DELETE</button> */}
       </div>
-      <CommentsTile className={commentBtnClassName}/>
+      {showComments ? <div className='comments-list-dropdown'>
+        {commentsLoading ? (
+          <p>Loading comments...</p>
+        ) : (
+          <CommentsList className="comments-list" comments={comments}/>
+        )}
+      </div> : null}
     </div>
   )
 }

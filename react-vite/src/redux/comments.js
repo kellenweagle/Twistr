@@ -30,7 +30,6 @@ const deleteComment = (comment) => ({
 })
 
 
-
 export const getAllCommentsThunk = (id) => async (dispatch) => {
     try {
         const res = await csrfFetch(`/api/posts/${id}/comments`);
@@ -167,19 +166,20 @@ const commentsReducer = (state = initialState, action) => {
 
                 return comment.id !== action.payload.id
             })
-            
+
             newState.allComments = filteredComments
 
             const newById = { ...newState.byId };
             delete newById[action.payload.id];
             newState.byId = newById;
 
-            
+
             return newState
         }
         default:
             return state;
     }
+
 }
 
 export default commentsReducer;

@@ -2,20 +2,22 @@ import { csrfFetch } from "./csrf";
 
 const GET_ALL_POSTS = 'posts/getAllPosts';
 const CREATE_POST = 'posts/createPost'
+const DELETE_POST = 'posts/deletePost'
 
 const getAllPosts = (posts) => ({
-  
-    type: GET_ALL_POSTS,
-    payload: posts
-  
-})
-const createPost = (post) => ({
-  
-    type: CREATE_POST,
-    payload: post
-  
+  type: GET_ALL_POSTS,
+  payload: posts
 })
 
+const createPost = (post) => ({
+  type: CREATE_POST,
+  payload: post
+})
+
+const deletePost = (post) => ({
+  type: DELETE_POST,
+  payload: post
+})
 
 
 export const getAllPostsThunk = () => async (dispatch) => {
@@ -55,8 +57,30 @@ export const createPostThunk = (post) => async (dispatch) => {
   }
 }
 
+export const deletePostThunk = (deletedPost) => async(dispatch) => {
+  try {
+    const options = {
+      method: 'DELETE',
+      header: {'Content-Type': 'application/json'},
+      body: JSON.stringify(deletePost)
+    };
+
+    const res = await csrfFetch(`/api/posts/${deletedPost}`, options);
+
+    if(res.ok) {
+      const data = await res.json();
+      dispatch(deletePost(data))
+    } else {
+      throw res;
+    }
+  } catch (e) {
+    return e;
+  }
+}
+
 const initialState = {
   allPosts: [],
+  userPosts: [],
   byId: {}
 }
 
@@ -75,6 +99,22 @@ const postsReducer = (state = initialState, action) => {
       newState = { ...state };
       newState.allPosts = [action.payload, ...newState.allPosts]
       newState.byId[action.payload.id] = action.payload;
+      return newState;
+    case DELETE_POST:
+      newState = {...state};
+      const filteredPosts = newState.allPosts.filter((post) => {
+        return post.id !== action.payload.id
+      })
+      const filteredUserPosts = newState.userPosts.filter((post) => {
+        return post.id !== action.payload.id
+      })
+      newState.allPosts = filteredPosts;
+      newState.userPosts = filteredUserPosts;
+
+      const newById = {...newState.byId};
+      delete newById[action.payload.id];
+      newState.byId = newById;
+
       return newState;
     default:
       return state;

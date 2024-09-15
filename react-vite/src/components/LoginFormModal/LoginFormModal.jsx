@@ -12,14 +12,15 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-  const handleDemoUser = () => {
-    return dispatch(sessionActions.thunkLogin({credential: 'Demo-lition', password: 'password22'}))
+  const handleDemoUser = async (e) => {
+    e.preventDefault()
+
+    await dispatch(sessionActions.thunkLogin({email: 'demo@user.io', password: 'password22'}))
     .then(closeModal)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("step 1")
 
     const serverResponse = await dispatch(
       thunkLogin({

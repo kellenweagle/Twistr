@@ -53,7 +53,8 @@ def delete_comment(commentId):
   user = current_user.to_dict()
 
   if str(comment.user_id) == str(user['id']):
+    comment_data = comment.to_dict()
     db.session.delete(comment)
     db.session.commit()
-    return "Successfully deleted."
+    return comment_data
   return "Comment doesn't belong to user", 401

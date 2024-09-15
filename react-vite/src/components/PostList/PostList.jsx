@@ -33,7 +33,6 @@ const PostList = () => {
   console.log('post in postlist', posts)
   return (
     <div className="post-list-container">
-
       <ul className="create-menu">
         <li className="post-text">
           <IoTextSharp className="create-icon" />
