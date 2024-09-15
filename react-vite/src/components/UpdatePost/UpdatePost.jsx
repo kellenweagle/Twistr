@@ -2,6 +2,7 @@ import './UpdatePost.css'
 import { isValidElement, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPostsThunk, updatePostThunk, getOnePostThunk } from '../../redux/posts';
+import { useModal } from "../../context/Modal";
 
 
 const UpdatePost = (postId) => {
@@ -9,6 +10,7 @@ const UpdatePost = (postId) => {
   const user = useSelector(state => state.session.user)
   const [post, setPost] = useState({post: ''});
   const [loaded, setLoaded] = useState(false);
+  const { closeModal } = useModal();
   
   let postUpdateId;
   
@@ -19,11 +21,12 @@ const UpdatePost = (postId) => {
 
   const postToUpdate = useSelector(state => state.postState.byId[postUpdateId])
 
-  console.log(postToUpdate.post)
+  console.log(postUpdateId)
 
   useEffect(() => {
     const getData = async () => {
       await dispatch(getOnePostThunk(postUpdateId, post));
+      await dispatch(getAllPostsThunk())
 
       setLoaded(true);
     }
@@ -50,7 +53,10 @@ const UpdatePost = (postId) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await dispatch(updatePostThunk(postId, post))
+    const res =await dispatch(updatePostThunk(postUpdateId, post))
+
+    await dispatch(getAllPostsThunk())
+    .then(closeModal)
 
   }
 

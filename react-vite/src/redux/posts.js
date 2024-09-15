@@ -89,12 +89,14 @@ export const createPostThunk = (post) => async (dispatch) => {
 export const updatePostThunk = (id, post) => async(dispatch) => {
   try {
     const options = {
-      method: 'POST',
+      method: 'PUT',
       header: {'Content-Type': 'application/json'},
       body: JSON.stringify(post)
     }
+    console.log("we are in the thunk")
 
     const res = await csrfFetch(`api/posts/${id}`, options)
+    console.log(res)
     if(res.ok) {
       const data = await res.json();
       dispatch(updatePost(data))
