@@ -1,38 +1,38 @@
-import { useEffect } from 'react';
 import './CommentTile.css'
-// import { getAllPostsThunk } from '../../redux/posts';
-// import { useEffect, useState } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { getAllUsersThunk } from '../../redux/user';
-// import { useSelector } from 'react-redux';
+import { getUserByIdThunk } from '../../redux/user';
 import { BsThreeDots } from "react-icons/bs";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 function CommentTile(comment) {
   comment = comment.comment
-  // post = post.post
-  // const users = useSelector(state => state.userState.allUsers);
+  const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false);
+  let user = useSelector(state => state.userState.userDetails);
+  const [userDetails, setUserDetails] = useState(user);
 
-  // const dispatch = useDispatch();
-
-  // const [isLoaded, setIsLoaded] = useState(false)
   useEffect(() => {
-    console.log('loaded tile')
-  })
+    const getData = async () => {
+      await dispatch(getUserByIdThunk(comment.user_id));
+      setIsLoaded(true);
+      setUserDetails(user)
+      console.log('user insside useeffect', user)
+    }
+    if (!isLoaded) {
+      getData();
+    }
+  }, [comment.user_id, dispatch, isLoaded, user])
 
+  if(!user) return <h1>User not found</h1>;
 
-  // let user = users.find((user) => user.id === post.user_id);
-
-  // if(!user) return <h1>User not found</h1>;
-
+  console.log('end of commenttile userDetails', userDetails)
   return (
     <div className='comment-tile-container'>
-      <div className='profile-pic-comment'></div>
-      {/* <div className='profile-pic-comment'>{user.username[0].toUpperCase()}</div> */}
+      <div className='profile-pic-comment'>{userDetails.username[0].toUpperCase()}</div>
       <div className='comment-main'>
         <div className='comment-left'>
           <div className='comment-top-line'>
-            <div className='comment-username'>username</div>
-            {/* <div className='comment-username'>{user.username.toLowerCase()}</div> */}
+            <div className='comment-username'>{userDetails.username.toLowerCase()}</div>
             <div className='comment-date'>Aug 17</div>
           </div>
           <div className='comment-text'>{comment.comment}</div>

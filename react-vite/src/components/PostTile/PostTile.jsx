@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsersThunk } from '../../redux/user';
 import { getAllCommentsThunk } from '../../redux/comments';
 import './PostTile.css';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, } from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import CommentsList from '../CommentsList';
@@ -18,7 +18,6 @@ const PostTile = (post) => {
   const [commentsLoading, setCommentsLoading] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [heartAnimation, setHeartAnimation] = useState(false);
-  // const ulRef = useRef();
   let users = useSelector(state => state.userState.allUsers);
   let comments = useSelector((state) => state.commentsState.allComments)
   let likes = useSelector((state) => state.likesState.allLikes)
@@ -26,7 +25,6 @@ const PostTile = (post) => {
   const updateId = post.id
   
   const handleCommentToggle = () => {
-    // e.stopPropagation();
     setShowComments(!showComments);
   };
   
@@ -94,6 +92,15 @@ const PostTile = (post) => {
           </div>
         </div>
         <div className="post-options"><BsThreeDots className='post-options-dots'/></div>
+      </div>
+      <div className='post-image-container'>
+        {post.images.length ? post.images.map((image, idx) => (
+          <div 
+          className='post-image-url'
+          >
+          <img className='post-image' src={image.url}/>
+          </div>
+        )) : null}
       </div>
       <div className="post-main">
         <pre>{post.post}</pre>
