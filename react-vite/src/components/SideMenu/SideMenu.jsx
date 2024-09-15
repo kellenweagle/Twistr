@@ -50,13 +50,18 @@ function SideMenu() {
     navigate('/');
   };
 
+  const goHome = (e) => {
+    e.preventDefault();
+    navigate('/');
+  };
+
   return (
     <div className="full-left-side">
       <div>
       {sessionUser ? (
         <>
           <div className="side-menu-logged">
-            <button className="home-button">
+            <button onClick={goHome} className="home-button">
               <GoHomeFill className="menu-icon"/> Home
             </button>
             <button className="explore-button">
@@ -72,7 +77,7 @@ function SideMenu() {
               <IoIosMail className="menu-icon"/> Inbox
             </button>
             <button className="account-button" onClick={logout}>
-              <IoPersonSharp className="menu-icon"/> Account Logout
+              <IoPersonSharp className="menu-icon"/> Logout
             </button>
             <button className="settings-button">
               <HiCog8Tooth className="menu-icon"/> Settings
