@@ -8,7 +8,7 @@ post_routes = Blueprint('posts', __name__)
 # Get all posts
 @post_routes.route('/')
 def posts():
-  posts = Post.query.join(Image, Post.id == Image.post_id).distinct(Post.id).all()
+  posts = Post.query.outerjoin(Image, Post.id == Image.post_id).distinct(Post.id).all()
  
   return {'posts': [post.to_dict() for post in posts]}
 
