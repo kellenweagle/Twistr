@@ -1,5 +1,5 @@
 import './UpdatePost.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPostsThunk, updatePostThunk } from '../../redux/posts';
 import { useModal } from "../../context/Modal";
@@ -19,8 +19,8 @@ const UpdatePost = (postId) => {
 
   const postToUpdate = useSelector(state => state.postState.byId[postUpdateId])
 
-
   const [post, setPost] = useState({post: postToUpdate.post});
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     const getData = async () => {
