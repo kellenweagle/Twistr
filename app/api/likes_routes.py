@@ -46,9 +46,9 @@ def delete_like(id):
     
     if like:
 
-       
+        like_data = like.to_dict()
         db.session.delete(like)
         db.session.commit()
-        return 'Delete Successful'
+        return  like_data
     else:
         return 'Like does not belong to user', 401

@@ -29,11 +29,10 @@ const PostList = () => {
   if (!posts) {
     return <h1>Loading</h1>
   }
-  console.log('post state---', posts)
 
+  console.log('post in postlist', posts)
   return (
     <div className="post-list-container">
-
       <ul className="create-menu">
         <li className="post-text">
           <IoTextSharp className="create-icon" />

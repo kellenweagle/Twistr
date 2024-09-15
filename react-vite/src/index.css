@@ -1,6 +1,5 @@
 /* TODO: Add sitewide styles */
 * {
-  /* background-color: #001935; */
   margin: 0;
 }
 
@@ -8,4 +7,5 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #001935;
 }

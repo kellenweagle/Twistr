@@ -2,6 +2,7 @@ import { useState } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import * as sessionActions from '../../redux/session';
 import "./LoginForm.css";
 
 function LoginFormModal() {
@@ -10,6 +11,13 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+
+  const handleDemoUser = async (e) => {
+    e.preventDefault()
+
+    await dispatch(sessionActions.thunkLogin({email: 'demo@user.io', password: 'password22'}))
+    .then(closeModal)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,13 +37,14 @@ function LoginFormModal() {
   };
 
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="login">
+    <h1>twistr</h1>
+    <span>Welcome to your corner of the internet. You'll never be bored again.</span>
+      <form className="login-info" onSubmit={handleSubmit}>
         <label>
-          Email
           <input
             type="text"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -43,9 +52,9 @@ function LoginFormModal() {
         </label>
         {errors.email && <p>{errors.email}</p>}
         <label>
-          Password
           <input
             type="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -53,8 +62,12 @@ function LoginFormModal() {
         </label>
         {errors.password && <p>{errors.password}</p>}
         <button type="submit">Log In</button>
+        <button
+              className='demo-user'
+              onClick={handleDemoUser}
+            >Demo User</button>
       </form>
-    </>
+    </div>
   );
 }
 
