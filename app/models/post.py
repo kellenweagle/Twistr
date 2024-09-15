@@ -30,5 +30,7 @@ class Post(db.Model):
     return {
       'id': self.id,
       'post': self.post,
-      'user_id': self.user_id
+      'user_id': self.user_id,
+      'images': [image.to_dict() for image in self.images]
+      
     }
