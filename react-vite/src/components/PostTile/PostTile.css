@@ -7,6 +7,22 @@
   font-family: sans-serif;
 }
 
+@keyframes jump {
+  0% {
+    transform: scale(1); /* Start with original size */
+  }
+  50% {
+    transform: scale(1.2); /* Grow to 120% of original size */
+  }
+  100% {
+    transform: scale(1); /* Back to original size */
+  }
+}
+
+.jump {
+  animation:  jump 0.3s ease;
+}
+
 .post-header,
 .username,
 .post-date,
@@ -106,6 +122,10 @@
   font-size: 1.3125rem;
   color: rgba(0, 0, 0, 0.65);
   cursor: pointer;
+}
+
+.liked {
+  color: red;
 }
 
 .like {

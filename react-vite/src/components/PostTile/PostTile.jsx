@@ -9,7 +9,7 @@ import CommentsList from '../CommentsList';
 import { deletePostThunk } from '../../redux/posts';
 import UpdatePost from '../UpdatePost';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
-import { getAllLikesThunk } from '../../redux/likes';
+import { createLikeThunk, deleteLikeThunk, getAllLikesThunk } from '../../redux/likes';
 
 const PostTile = (post) => {
   post = post.post
@@ -17,6 +17,7 @@ const PostTile = (post) => {
   const [loaded, setLoaded] = useState(false);
   const [commentsLoading, setCommentsLoading] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [heartAnimation, setHeartAnimation] = useState(false);
   // const ulRef = useRef();
   let users = useSelector(state => state.userState.allUsers);
   let comments = useSelector((state) => state.commentsState.allComments)
@@ -45,6 +46,26 @@ const PostTile = (post) => {
 
   }, [dispatch, loaded, post.id, showComments]);
 
+  const handleLike = async(e) => {
+    e.preventDefault()
+    e.stopPropagation();
+    
+    let likesOnPost = likes.filter(like => like.post_id === post.id)
+    let userLiked = likesOnPost.filter(like => like.user_id === sessionUser.id)
+    
+    if (!userLiked.length) {
+      await dispatch(createLikeThunk(post.id))
+      
+    } else {
+      await dispatch(deleteLikeThunk(post.id))
+    }
+    // Trigger animation
+    setHeartAnimation(true);
+    setTimeout(() => setHeartAnimation(false), 300); // Reset animation state
+  
+    
+  }
+
   const handleDelete = async (e) => {
     e.preventDefault();
 
@@ -58,7 +79,7 @@ const PostTile = (post) => {
 
   let user = users.find((user) => user.id === post.user_id);
   let like = likes.filter((like) => like.post_id == post.id)
-  
+  const userLikedPost = likes.some(like => like.user_id === sessionUser.id);
   if(!user) return <h1>User not found</h1>;
   const likeCount = like.length;
 
@@ -81,7 +102,7 @@ const PostTile = (post) => {
         <button className="likes-count"><span>{likeCount}</span> likes</button>
         <div className="like-comment">
           <FaRegComment className="comment" onClick={handleCommentToggle}/>
-          <FaRegHeart className='like'/>
+          <FaRegHeart className={`like ${userLikedPost ? 'liked' : ''} ${heartAnimation ? 'jump' : ''}`} onClick={e => handleLike(e)} /> 
         </div>
       </div>
       <div className='manage-post'>
