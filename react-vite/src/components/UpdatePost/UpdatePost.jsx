@@ -20,8 +20,6 @@ const UpdatePost = (postId) => {
 
   const postToUpdate = useSelector(state => state.postState.byId[postUpdateId])
 
-  console.log(postToUpdate, '-----------post to update')
-
   const [post, setPost] = useState({post: postToUpdate.post});
 
   useEffect(() => {

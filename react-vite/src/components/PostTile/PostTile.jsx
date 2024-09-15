@@ -27,6 +27,8 @@ const PostTile = (post) => {
     setShowComments(!showComments);
   };
 
+  console.log(post.images[0].url)
+
   useEffect(() => {
 
       const getData = async () => {
@@ -68,6 +70,15 @@ const PostTile = (post) => {
           </div>
         </div>
         <div className="post-options"><BsThreeDots className='post-options-dots'/></div>
+      </div>
+      <div className='post-image-container'>
+        {post.images.length ? post.images.map((image, idx) => (
+          <div 
+          className='post-image-url'
+          >
+          <img className='post-image' src={image.url}/>
+          </div>
+        )) : null}
       </div>
       <div className="post-main">
         <pre>{post.post}</pre>
