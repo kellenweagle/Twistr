@@ -53,7 +53,7 @@ const UpdatePost = (postId) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res =await dispatch(updatePostThunk(postUpdateId, post))
+    await dispatch(updatePostThunk(postUpdateId, post))
 
     await dispatch(getAllPostsThunk())
     .then(closeModal)

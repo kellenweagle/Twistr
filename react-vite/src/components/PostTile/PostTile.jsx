@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsersThunk } from '../../redux/user';
 import { getAllCommentsThunk } from '../../redux/comments';
 import './PostTile.css';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState} from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import CommentsList from '../CommentsList';
