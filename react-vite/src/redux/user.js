@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const GET_USER_BY_ID = 'users/getUserById';
+
 const GET_ALL_USERS = 'users/getAllUsers';
 
 const getUserById = (user) => {
@@ -20,11 +21,10 @@ const getAllUsers = (users) => {
 export const getUserByIdThunk = (id) => async (dispatch) => {
   try {
     const res = await csrfFetch(`/api/users/${id}`)
-    console.log('getuserid thunk', res)
     if (res.ok) {
       const data = await res.json();
-      await dispatch(getUserById(data))
-      console.log('user in thunk------', data)
+      await dispatch(getUserById(data));
+      console.log('userdetails from state in thunk', data)
     } else {
       throw res
     }
@@ -57,7 +57,7 @@ const userReducer = (state = initialState, action) => {
   switch(action.type) {
     case GET_USER_BY_ID:
       newState = {...state};
-      newState.userDetails = action.payload.User
+      newState.userDetails = action.payload;
       return newState;
     case GET_ALL_USERS:
       newState = {...state};

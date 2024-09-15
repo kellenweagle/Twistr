@@ -1,14 +1,13 @@
 import './UpdatePost.css'
-import { isValidElement, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllPostsThunk, updatePostThunk, getOnePostThunk } from '../../redux/posts';
+import { getAllPostsThunk, updatePostThunk } from '../../redux/posts';
 import { useModal } from "../../context/Modal";
 
 
 const UpdatePost = (postId) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
-  const [loaded, setLoaded] = useState(false);
   const { closeModal } = useModal();
 
   let postUpdateId;
@@ -20,33 +19,13 @@ const UpdatePost = (postId) => {
 
   const postToUpdate = useSelector(state => state.postState.byId[postUpdateId])
 
-  console.log(postToUpdate, '-----------post to update')
 
   const [post, setPost] = useState({post: postToUpdate.post});
-
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     await dispatch(getOnePostThunk(postUpdateId, post));
-  //     await dispatch(getAllPostsThunk())
-
-  //     setLoaded(true);
-  //   }
-
-  //   if(!loaded) {
-  //     getData();
-  //   }
-
-  //   if(postToUpdate) {
-  //     updatePost(postToUpdate.post, 'post')
-  //   }
-
-  // }, [setLoaded])
 
   const updatePost = (val, key) => {
     return setPost((prev) => {
       const newPrev = { ...prev };
       newPrev[key] = val
-      console.log(newPrev[key], "this is the value")
       return newPrev
     })
   }
