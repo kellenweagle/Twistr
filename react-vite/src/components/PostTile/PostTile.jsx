@@ -27,8 +27,6 @@ const PostTile = (post) => {
     setShowComments(!showComments);
   };
 
-  console.log(post.images[0].url)
-
   useEffect(() => {
 
       const getData = async () => {
