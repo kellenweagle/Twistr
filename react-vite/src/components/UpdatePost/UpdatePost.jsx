@@ -14,7 +14,6 @@ const UpdatePost = (postId) => {
 
   for(let val in postId) {
     postUpdateId = postId[val]
-    console.log(postUpdateId)
   }
 
   const postToUpdate = useSelector(state => state.postState.byId[postUpdateId])

@@ -16,7 +16,6 @@ function CommentTile(comment) {
       await dispatch(getUserByIdThunk(comment.user_id));
       setIsLoaded(true);
       setUserDetails(user)
-      console.log('user insside useeffect', user)
     }
     if (!isLoaded) {
       getData();
@@ -25,7 +24,6 @@ function CommentTile(comment) {
 
   if(!user) return <h1>User not found</h1>;
 
-  console.log('end of commenttile userDetails', userDetails)
   return (
     <div className='comment-tile-container'>
       <div className='profile-pic-comment'>{userDetails.username[0].toUpperCase()}</div>

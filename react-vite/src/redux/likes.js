@@ -29,7 +29,6 @@ export const getAllLikesThunk = (id) => async (dispatch) => {
         const res = await csrfFetch(`/api/posts/${id}/likes`);
         if (res.ok) {
             const data = await res.json();
-            console.log(data, 'data-----------------')
             await dispatch(getAllLikes(data))
         } else {
             throw res;
@@ -39,20 +38,18 @@ export const getAllLikesThunk = (id) => async (dispatch) => {
     }
 }
 
-export const createLikeThunk = (id, like) => async (dispatch) => {
+export const createLikeThunk = (id) => async (dispatch) => {
 
     try {
-        console.log(like, 'in dispatch')
         const options = {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(like)
+            body: JSON.stringify()
         }
         const res = await csrfFetch(`/api/posts/${id}/likes`, options)
 
         if (res.ok) {
             const data = await res.json();
-            console.log(data)
             await dispatch(createLike(data));
         } else throw res;
 

@@ -7,6 +7,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import CommentsList from '../CommentsList';
 import { deletePostThunk } from '../../redux/posts';
+import { createLikeThunk } from '../../redux/likes';
 import UpdatePost from '../UpdatePost';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 
@@ -19,6 +20,7 @@ const PostTile = (post) => {
   let users = useSelector(state => state.userState.allUsers);
   let comments = useSelector((state) => state.commentsState.allComments)
   const sessionUser = useSelector((state) => state.session.user)
+  const like = useSelector((state) => state.likesState.allLikes)
   const updateId = post.id
   
   const handleCommentToggle = () => {
@@ -47,6 +49,12 @@ const PostTile = (post) => {
 
   };
 
+  const handleLike = async (e) => {
+    e.preventDefault();
+
+    await dispatch(createLikeThunk(post.id))
+  }
+
   if(!post || !users || users.length === 0) {
     return <h1>Loading...</h1>
   }
@@ -69,8 +77,9 @@ const PostTile = (post) => {
       </div>
       <div className='post-image-container'>
         {post.images.length ? post.images.map((image, idx) => (
-          <div 
+          <div
           className='post-image-url'
+          key={`${image.id}-${idx}`}
           >
           <img className='post-image' src={image.url}/>
           </div>
@@ -80,10 +89,12 @@ const PostTile = (post) => {
         <pre>{post.post}</pre>
       </div>
       <div className="post-footer">
-        <button className="likes-count"><span>32</span> likes</button>
+        <button className="likes-count">
+          <span>{like.length}</span> likes
+        </button>
         <div className="like-comment">
           <FaRegComment className="comment" onClick={handleCommentToggle}/>
-          <FaRegHeart className='like'/>
+          <FaRegHeart className='like' onClick={handleLike}/>
         </div>
       </div>
       <div className='manage-post'>
