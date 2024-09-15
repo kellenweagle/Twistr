@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Post, db
+from app.models import Post,Image, db
 from app.forms import PostForm
 
 post_routes = Blueprint('posts', __name__)
@@ -8,8 +8,8 @@ post_routes = Blueprint('posts', __name__)
 # Get all posts
 @post_routes.route('/')
 def posts():
-  posts = Post.query.all()
-
+  posts = Post.query.join(Image, Post.id == Image.post_id).distinct(Post.id).all()
+  print(posts[1], '___________________posts_________')
   return {'posts': [post.to_dict() for post in posts]}
 
 # Get One Post
