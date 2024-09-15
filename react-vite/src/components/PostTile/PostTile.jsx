@@ -9,7 +9,9 @@ import CommentsList from '../CommentsList';
 import { deletePostThunk } from '../../redux/posts';
 import UpdatePost from '../UpdatePost';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
+
 import { createLikeThunk, deleteLikeThunk, getAllLikesThunk } from '../../redux/likes';
+
 
 const PostTile = (post) => {
   post = post.post
@@ -77,7 +79,9 @@ const PostTile = (post) => {
 
   let user = users.find((user) => user.id === post.user_id);
   let like = likes.filter((like) => like.post_id == post.id)
+
   const userLikedPost = likes.some(like => like.user_id === sessionUser.id);
+
   if(!user) return <h1>User not found</h1>;
   const likeCount = like.length;
 
