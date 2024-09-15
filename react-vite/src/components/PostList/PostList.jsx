@@ -10,15 +10,17 @@ import PostTile from "../PostTile";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllPostsThunk } from "../../redux/posts";
+import { getAllLikesThunk } from "../../redux/likes";
 
 const PostList = () => {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   let posts = useSelector(state => state.postState.allPosts);
-
+  let likes = useSelector((state) => state.likesState.byPostId)
   useEffect(() => {
     const getData = async () => {
       await dispatch(getAllPostsThunk());
+      await dispatch(getAllLikesThunk())
       setIsLoaded(true);
     }
     if (!isLoaded && !posts.length) {
@@ -66,6 +68,7 @@ const PostList = () => {
       <div className="posts">
         {posts.map((post, idx) => (
           <div key={`${idx}-${post.user_id}`} className="post-tile">
+            
             <PostTile post={post}/>
           </div>
         ))}
