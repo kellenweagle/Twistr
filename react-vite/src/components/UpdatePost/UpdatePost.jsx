@@ -8,7 +8,6 @@ import { useModal } from "../../context/Modal";
 const UpdatePost = (postId) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
-  const [post, setPost] = useState({post: ''});
   const [loaded, setLoaded] = useState(false);
   const { closeModal } = useModal();
 
@@ -21,25 +20,27 @@ const UpdatePost = (postId) => {
 
   const postToUpdate = useSelector(state => state.postState.byId[postUpdateId])
 
-  console.log(postUpdateId)
+  console.log(postToUpdate, '-----------post to update')
 
-  useEffect(() => {
-    const getData = async () => {
-      await dispatch(getOnePostThunk(postUpdateId, post));
-      await dispatch(getAllPostsThunk())
+  const [post, setPost] = useState({post: postToUpdate.post});
 
-      setLoaded(true);
-    }
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     await dispatch(getOnePostThunk(postUpdateId, post));
+  //     await dispatch(getAllPostsThunk())
 
-    if(!loaded) {
-      getData();
-    }
+  //     setLoaded(true);
+  //   }
 
-    if(postToUpdate) {
-      updatePost(postToUpdate.post, 'post')
-    }
+  //   if(!loaded) {
+  //     getData();
+  //   }
 
-  }, [setLoaded])
+  //   if(postToUpdate) {
+  //     updatePost(postToUpdate.post, 'post')
+  //   }
+
+  // }, [setLoaded])
 
   const updatePost = (val, key) => {
     return setPost((prev) => {
