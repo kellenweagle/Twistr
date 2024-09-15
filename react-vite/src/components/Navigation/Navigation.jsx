@@ -8,7 +8,7 @@ function Navigation() {
       <ul className="nav-list">
         <li>
           <NavLink to="/" className='nav-logo'>
-            <img src="../../images/nav-logo.svg" alt="" />
+            <img src="https://toginet.com/images/twistr/images/nav-logo.svg" alt="" />
           </NavLink>
         </li>
         <li>
