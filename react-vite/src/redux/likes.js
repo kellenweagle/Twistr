@@ -24,12 +24,13 @@ const deleteLike = (like) => ({
 })
 
 
-export const getAllLikesThunk = (id) => async (dispatch) => {
+export const getAllLikesThunk = () => async (dispatch) => {
     try {
-        const res = await csrfFetch(`/api/posts/${id}/likes`);
+        const res = await csrfFetch(`/api/likes`);
+        
         if (res.ok) {
             const data = await res.json();
-            console.log(data, 'data-----------------')
+            
             await dispatch(getAllLikes(data))
         } else {
             throw res;
@@ -39,14 +40,14 @@ export const getAllLikesThunk = (id) => async (dispatch) => {
     }
 }
 
-export const createLikeThunk = (id, like) => async (dispatch) => {
+export const createLikeThunk = (id) => async (dispatch) => {
 
     try {
-        console.log(like, 'in dispatch')
+        
         const options = {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(like)
+            body: JSON.stringify()
         }
         const res = await csrfFetch(`/api/posts/${id}/likes`, options)
 
@@ -57,18 +58,18 @@ export const createLikeThunk = (id, like) => async (dispatch) => {
         } else throw res;
 
     } catch (error) {
-        return error
+        console.log( error)
     }
 }
 
-export const deleteLikeThunk = (id, like) => async (dispatch) => {
+export const deleteLikeThunk = (id) => async (dispatch) => {
     try {
 
 
         const options = {
             method: 'DELETE',
             header: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(like)
+            body: JSON.stringify()
         }
 
 
@@ -94,7 +95,8 @@ export const deleteLikeThunk = (id, like) => async (dispatch) => {
 
 const initialState = {
     allLikes: [],
-    byId: {}
+    byId: {},
+    byPostId: {}
 }
 
 const likesReducer = (state = initialState, action) => {
@@ -106,12 +108,25 @@ const likesReducer = (state = initialState, action) => {
 
             for (let like of action.payload.likes) {
                 newState.byId[like.id] = like;
+
+                if (!newState.byPostId[like.post_id]) {
+                    newState.byPostId[like.post_id] = [];
+                }
+        
+                
+                newState.byPostId[like.post_id].push(like);
             }
             return newState;
         case CREATE_LIKE:
             newState = { ...state };
             newState.allLikes = [action.payload, ...newState.allLikes]
             newState.byId[action.payload.id] = action.payload;
+            if (!newState.byPostId[action.payload.post_id]) {
+                newState.byPostId[action.payload.post_id] = [];
+            }
+        
+            
+            newState.byPostId[action.payload.post_id].push(action.payload);
             return newState;
         
         case DELETE_LIKE: {
@@ -128,6 +143,10 @@ const likesReducer = (state = initialState, action) => {
             delete newById[action.payload.id];
             newState.byId = newById;
 
+            if (newState.byPostId[action.payload.post_id]) {
+                const filteredPostLikes = newState.byPostId[action.payload.post_id].filter(like => like.id !== action.payload.id);
+                newState.byPostId[action.payload.post_id] = filteredPostLikes;
+            }
             
             return newState
         }

@@ -74,6 +74,7 @@ export const createPostThunk = (post) => async (dispatch) => {
           body: JSON.stringify(post)
       }
       const res = await csrfFetch(`/api/posts/`, options)
+      console.log(res, options)
 
       if (res.ok) {
           const postData = await res.json();
