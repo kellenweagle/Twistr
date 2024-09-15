@@ -21,7 +21,7 @@ const PostTile = (post) => {
   let comments = useSelector((state) => state.commentsState.allComments)
   const sessionUser = useSelector((state) => state.session.user)
   const updateId = post.id
-
+  
   const handleCommentToggle = () => {
     // e.stopPropagation();
     setShowComments(!showComments);

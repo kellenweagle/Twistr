@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import Post
 
 
-class PostForm(FlaskForm):
+class ImageForm(FlaskForm):
     url = StringField(
         'url', validators=[])
     post_id = IntegerField('post_id')
