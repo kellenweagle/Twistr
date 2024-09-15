@@ -12,6 +12,13 @@ def posts():
 
   return {'posts': [post.to_dict() for post in posts]}
 
+# Get One Post
+@post_routes.route('/<int:id>')
+def get_one_post(id):
+  post = Post.query.get(id)
+
+  return post.to_dict()
+
 # Create a post
 @post_routes.route('/', methods=['POST'])
 @login_required

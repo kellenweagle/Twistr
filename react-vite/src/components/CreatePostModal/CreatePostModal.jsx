@@ -34,7 +34,7 @@ function CreatePostModal() {
       <p className="create-post-username">{user.username.toLowerCase()}</p>
       <form className='form' onSubmit={(e) => handleSubmit(e)}>
         <div>
-        <label className="label-input post">
+        <label className="label-input">
           <textarea
             className="post-input"
             type="text"

@@ -129,6 +129,23 @@
   z-index: 999;
 }
 
+.manage-post {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.manage-post button {
+  margin-top: 10px;
+  padding: 6px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  color: white;
+  background-color: #00B8FF;
+  font-size: 1rem;
+
+}
+
 /*
 
 May have time to implement Tool Tips, delete if not
