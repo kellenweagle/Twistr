@@ -25,11 +25,11 @@ def get_one_post(id):
 def post():
   
   form = PostForm()
-  image_form = ImageForm()
+  # image_form = ImageForm()
   
-  image_form['csrf_token'].data = request.cookies['csrf_token']
-  if image_form.validate_on_submit():
-    user = current_user.to_dict()
+  # image_form['csrf_token'].data = request.cookies['csrf_token']
+  # if image_form.validate_on_submit():
+  #   user = current_user.to_dict()
    
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
@@ -45,12 +45,12 @@ def post():
     db.session.commit()
     print(post.id)
 
-    image = Image(
-      url=image_form.data['url'],
-      post_id=post.id
-    )
-    db.session.add(image)
-    db.session.commit()
+    # image = Image(
+    #   url=image_form.data['url'],
+    #   post_id=post.id
+    # )
+    # db.session.add(image)
+    # db.session.commit()
 
     return post.to_dict()
   return form.errors, 401
