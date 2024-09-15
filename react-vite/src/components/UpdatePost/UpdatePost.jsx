@@ -8,7 +8,6 @@ import { useModal } from "../../context/Modal";
 const UpdatePost = (postId) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
-  const [post, setPost] = useState({post: ''});
   const [loaded, setLoaded] = useState(false);
   const { closeModal } = useModal();
 
@@ -21,7 +20,9 @@ const UpdatePost = (postId) => {
 
   const postToUpdate = useSelector(state => state.postState.byId[postUpdateId])
 
-  console.log(postUpdateId)
+  console.log(postToUpdate, '-----------post to update')
+
+  const [post, setPost] = useState({post: postToUpdate.post});
 
   useEffect(() => {
     const getData = async () => {
