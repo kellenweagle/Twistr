@@ -9,6 +9,7 @@ import CommentsList from '../CommentsList';
 import { deletePostThunk } from '../../redux/posts';
 import UpdatePost from '../UpdatePost';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import { getAllLikesThunk } from '../../redux/likes';
 
 const PostTile = (post) => {
   post = post.post
@@ -18,19 +19,21 @@ const PostTile = (post) => {
   const [showComments, setShowComments] = useState(false);
   let users = useSelector(state => state.userState.allUsers);
   let comments = useSelector((state) => state.commentsState.allComments)
+  let likes = useSelector((state) => state.likesState.allLikes)
   const sessionUser = useSelector((state) => state.session.user)
   const updateId = post.id
   
   const handleCommentToggle = () => {
     setShowComments(!showComments);
   };
-
+  
   useEffect(() => {
 
       const getData = async () => {
         setCommentsLoading(true);
         await dispatch(getAllUsersThunk());
         await dispatch(getAllCommentsThunk(post.id));
+        await dispatch(getAllLikesThunk())
         setLoaded(true);
         setCommentsLoading(false);
       };
@@ -47,13 +50,15 @@ const PostTile = (post) => {
 
   };
 
-  if(!post || !users || users.length === 0) {
+  if(!post || !users || !likes || users.length === 0) {
     return <h1>Loading...</h1>
   }
 
   let user = users.find((user) => user.id === post.user_id);
-
+  let like = likes.filter((like) => like.post_id == post.id)
+  
   if(!user) return <h1>User not found</h1>;
+  const likeCount = like.length;
 
   return (
     <div className="post-container">
@@ -80,7 +85,7 @@ const PostTile = (post) => {
         <pre>{post.post}</pre>
       </div>
       <div className="post-footer">
-        <button className="likes-count"><span>32</span> likes</button>
+        <button className="likes-count"><span>{likeCount}</span> likes</button>
         <div className="like-comment">
           <FaRegComment className="comment" onClick={handleCommentToggle}/>
           <FaRegHeart className='like'/>
