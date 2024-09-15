@@ -80,17 +80,18 @@ const PostTile = (post) => {
         </div>
       </div>
       <div className='manage-post'>
-        {sessionUser.id === post.user_id ? 
-          (<button className='delete-post-button' onClick={handleDelete}>DELETE</button>) 
-          : (null)}
+        {sessionUser ? (
+          sessionUser.id === post.user_id ?
+            (<button className='delete-post-button' onClick={handleDelete}>DELETE</button>)
+            : (null)) : null }
+        {sessionUser ? (
+          sessionUser.id === post.user_id ?
+          (<OpenModalButton
+             className='update-post-button'
+             buttonText={<><span>UPDATE</span></>}
+             modalComponent={<UpdatePost postid={updateId}/>}/>)
+             : (null)) : null }
 
-        {sessionUser.id === post.user_id ? 
-        (<OpenModalButton
-           className='update-post-button'
-           buttonText={<><span>UPDATE</span></>}
-           modalComponent={<UpdatePost postid={updateId}/>}/>) 
-           : (null)}
-  
       </div>
       {showComments ? <div className='comments-list-dropdown'>
         {commentsLoading ? (

@@ -11,9 +11,9 @@ const UpdatePost = (postId) => {
   const [post, setPost] = useState({post: ''});
   const [loaded, setLoaded] = useState(false);
   const { closeModal } = useModal();
-  
+
   let postUpdateId;
-  
+
   for(let val in postId) {
     postUpdateId = postId[val]
     console.log(postUpdateId)
