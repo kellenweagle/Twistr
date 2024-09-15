@@ -40,14 +40,14 @@ export const getAllLikesThunk = () => async (dispatch) => {
     }
 }
 
-export const createLikeThunk = (id, like) => async (dispatch) => {
+export const createLikeThunk = (id) => async (dispatch) => {
 
     try {
-        console.log(like, 'in dispatch')
+        
         const options = {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(like)
+            body: JSON.stringify()
         }
         const res = await csrfFetch(`/api/posts/${id}/likes`, options)
 
@@ -58,18 +58,18 @@ export const createLikeThunk = (id, like) => async (dispatch) => {
         } else throw res;
 
     } catch (error) {
-        return error
+        console.log( error)
     }
 }
 
-export const deleteLikeThunk = (id, like) => async (dispatch) => {
+export const deleteLikeThunk = (id) => async (dispatch) => {
     try {
 
 
         const options = {
             method: 'DELETE',
             header: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(like)
+            body: JSON.stringify()
         }
 
 

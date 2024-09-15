@@ -5,19 +5,19 @@ from app.models import Like , db
 likes_routes = Blueprint('likes', __name__)
 
 
-@likes_routes.route('<int:id>/likes')
-def get_likes(id):
+@likes_routes.route('/likes')
+def get_likes():
     """
     Query for all likes and returns them in a list of user dictionaries
     by post id
     """
-    likes = Like.query.filter_by(post_id=id).all()
+    likes = Like.query.all()
     
 
     return {'likes': [like.to_dict() for like in likes]}
 
 
-@likes_routes.route('<int:id>/likes', methods=['post'])
+@likes_routes.route('/posts/<int:id>/likes', methods=['post'])
 @login_required
 def like_post(id):
     """
@@ -36,7 +36,7 @@ def like_post(id):
     else:
         return 'post has already been liked by this user.', 401
 
-@likes_routes.route('<int:id>/likes', methods=['delete'])
+@likes_routes.route('/posts/<int:id>/likes', methods=['delete'])
 @login_required
 def delete_like(id):
     
