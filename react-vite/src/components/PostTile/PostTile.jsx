@@ -6,7 +6,9 @@ import { useEffect, useState, useRef } from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import CommentsList from '../CommentsList';
-// import { deletePostThunk } from '../../redux/posts';
+import { deletePostThunk } from '../../redux/posts';
+import UpdatePost from '../UpdatePost';
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
 
 const PostTile = (post) => {
   post = post.post
@@ -17,6 +19,8 @@ const PostTile = (post) => {
   // const ulRef = useRef();
   let users = useSelector(state => state.userState.allUsers);
   let comments = useSelector((state) => state.commentsState.allComments)
+  const sessionUser = useSelector((state) => state.session.user)
+  const updateId = post.id
 
   const handleCommentToggle = () => {
     // e.stopPropagation();
@@ -38,12 +42,12 @@ const PostTile = (post) => {
 
   }, [dispatch, loaded, post.id, showComments]);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
+  const handleDelete = async (e) => {
+    e.preventDefault();
 
-  //   await dispatch(deletePostThunk(post.id))
+    await dispatch(deletePostThunk(post.id))
 
-  // };
+  };
 
   if(!post || !users || users.length === 0) {
     return <h1>Loading...</h1>
@@ -74,7 +78,19 @@ const PostTile = (post) => {
           <FaRegComment className="comment" onClick={handleCommentToggle}/>
           <FaRegHeart className='like'/>
         </div>
-        {/* <button onClick={handleSubmit}>DELETE</button> */}
+      </div>
+      <div className='manage-post'>
+        {sessionUser.id === post.user_id ? 
+          (<button className='delete-post-button' onClick={handleDelete}>DELETE</button>) 
+          : (null)}
+
+        {sessionUser.id === post.user_id ? 
+        (<OpenModalButton
+           className='update-post-button'
+           buttonText={<><span>UPDATE</span></>}
+           modalComponent={<UpdatePost postid={updateId}/>}/>) 
+           : (null)}
+  
       </div>
       {showComments ? <div className='comments-list-dropdown'>
         {commentsLoading ? (
@@ -87,4 +103,4 @@ const PostTile = (post) => {
   )
 }
 
-export default PostTile
+export default PostTile;

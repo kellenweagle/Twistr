@@ -1,7 +1,9 @@
 import { csrfFetch } from "./csrf";
 
 const GET_ALL_POSTS = 'posts/getAllPosts';
+const GET_ONE_POST = 'posts/getOnePost'
 const CREATE_POST = 'posts/createPost'
+const UPDATE_POST = 'posts/updatePost'
 const DELETE_POST = 'posts/deletePost'
 
 const getAllPosts = (posts) => ({
@@ -9,8 +11,18 @@ const getAllPosts = (posts) => ({
   payload: posts
 })
 
+const getOnePost = (post) => ({
+  type: GET_ONE_POST,
+  payload: post
+})
+
 const createPost = (post) => ({
   type: CREATE_POST,
+  payload: post
+})
+
+const updatePost = (post) => ({
+  type: UPDATE_POST,
   payload: post
 })
 
@@ -35,6 +47,23 @@ export const getAllPostsThunk = () => async (dispatch) => {
   }
 }
 
+export const getOnePostThunk = (postid) => async (dispatch) => {
+  try {
+    const res = await csrfFetch(`/api/posts/${postid}`)
+    console.log('we are in the thunk', res)
+    if(res.ok) {
+      const data = await res.json();
+      await dispatch(getOnePost(data))
+      console.log('we are in the thunk UNDER res')
+    } else {
+      throw res;
+    }
+
+  } catch (e) {
+    return e;
+  }
+}
+
 export const createPostThunk = (post) => async (dispatch) => {
   
   try {
@@ -54,6 +83,27 @@ export const createPostThunk = (post) => async (dispatch) => {
 
   } catch (error) {
       return error
+  }
+}
+
+export const updatePostThunk = (id, post) => async(dispatch) => {
+  try {
+    const options = {
+      method: 'POST',
+      header: {'Content-Type': 'application/json'},
+      body: JSON.stringify(post)
+    }
+
+    const res = await csrfFetch(`api/posts/${id}`, options)
+    if(res.ok) {
+      const data = await res.json();
+      dispatch(updatePost(data))
+      return data;
+    } else {
+      throw res;
+    }
+  } catch(e) {
+    return e;
   }
 }
 
@@ -81,6 +131,7 @@ export const deletePostThunk = (deletedPost) => async(dispatch) => {
 const initialState = {
   allPosts: [],
   userPosts: [],
+  updatePost: {},
   byId: {}
 }
 
@@ -95,11 +146,33 @@ const postsReducer = (state = initialState, action) => {
         newState.byId[post.id] = post;
       }
       return newState;
+    case GET_ONE_POST:
+      newState ={...state};
+      newState.allPosts = [action.payload]
+      newState.updatePost = action.payload;
+      return newState;
     case CREATE_POST:
       newState = { ...state };
       newState.allPosts = [action.payload, ...newState.allPosts]
       newState.byId[action.payload.id] = action.payload;
       return newState;
+    case UPDATE_POST:
+      newState = { ...state }
+      const postId = action.payload.id;
+
+      const newAllPosts = [];
+      for(let i = 0; i < newState.allPosts.length; i++) {
+        let currPost = newState.allPosts[i];
+        if(currPost.id === postId) {
+          newAllPosts.push(action.payload);
+        } else {
+          newAllPosts.push(currPost);
+        }
+
+        newState.allPosts = newAllPosts;
+        newState.byId = {...newState.byId, [postId]: action.payload}
+        return newState;
+      }
     case DELETE_POST:
       newState = {...state};
       const filteredPosts = newState.allPosts.filter((post) => {
