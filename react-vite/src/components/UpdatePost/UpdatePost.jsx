@@ -1,14 +1,13 @@
 import './UpdatePost.css'
-import { isValidElement, useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllPostsThunk, updatePostThunk, getOnePostThunk } from '../../redux/posts';
+import { getAllPostsThunk, updatePostThunk } from '../../redux/posts';
 import { useModal } from "../../context/Modal";
 
 
 const UpdatePost = (postId) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
-  const [loaded, setLoaded] = useState(false);
   const { closeModal } = useModal();
 
   let postUpdateId;
@@ -21,6 +20,7 @@ const UpdatePost = (postId) => {
   const postToUpdate = useSelector(state => state.postState.byId[postUpdateId])
 
   const [post, setPost] = useState({post: postToUpdate.post});
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     const getData = async () => {
@@ -44,7 +44,6 @@ const UpdatePost = (postId) => {
     return setPost((prev) => {
       const newPrev = { ...prev };
       newPrev[key] = val
-      console.log(newPrev[key], "this is the value")
       return newPrev
     })
   }

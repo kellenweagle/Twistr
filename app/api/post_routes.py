@@ -1,15 +1,15 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Post,Image, db
-from app.forms import PostForm
+from app.forms import PostForm, ImageForm
 
 post_routes = Blueprint('posts', __name__)
 
 # Get all posts
 @post_routes.route('/')
 def posts():
-  posts = Post.query.join(Image, Post.id == Image.post_id).distinct(Post.id).all()
-  print(posts[1], '___________________posts_________')
+  posts = Post.query.outerjoin(Image, Post.id == Image.post_id).distinct(Post.id).all()
+ 
   return {'posts': [post.to_dict() for post in posts]}
 
 # Get One Post
@@ -25,11 +25,16 @@ def get_one_post(id):
 def post():
   
   form = PostForm()
+  # image_form = ImageForm()
   
+  # image_form['csrf_token'].data = request.cookies['csrf_token']
+  # if image_form.validate_on_submit():
+  #   user = current_user.to_dict()
+   
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     user = current_user.to_dict()
-    print(user,'user')
+    
 
     post = Post(
       post=form.data['post'],
@@ -38,6 +43,15 @@ def post():
     print(post, 'post')
     db.session.add(post)
     db.session.commit()
+    print(post.id)
+
+    # image = Image(
+    #   url=image_form.data['url'],
+    #   post_id=post.id
+    # )
+    # db.session.add(image)
+    # db.session.commit()
+
     return post.to_dict()
   return form.errors, 401
 

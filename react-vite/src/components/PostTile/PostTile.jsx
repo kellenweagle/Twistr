@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsersThunk } from '../../redux/user';
 import { getAllCommentsThunk } from '../../redux/comments';
 import './PostTile.css';
-import { useEffect, useState} from 'react';
+import { useEffect, useState, } from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import CommentsList from '../CommentsList';
@@ -16,14 +16,12 @@ const PostTile = (post) => {
   const [loaded, setLoaded] = useState(false);
   const [commentsLoading, setCommentsLoading] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  // const ulRef = useRef();
   let users = useSelector(state => state.userState.allUsers);
   let comments = useSelector((state) => state.commentsState.allComments)
   const sessionUser = useSelector((state) => state.session.user)
   const updateId = post.id
-
+  
   const handleCommentToggle = () => {
-    // e.stopPropagation();
     setShowComments(!showComments);
   };
 
