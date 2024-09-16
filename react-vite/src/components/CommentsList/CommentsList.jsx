@@ -33,14 +33,14 @@ const CommentsList = ({post, users}) => {
     const newCommentData = ({
       comment: comment
     })
-    
+
 
     const newComment = await dispatch(createCommentThunk(post.id, newCommentData))
 
     if (newComment.errors) {
       setErrors(newComment.errors)
     } else {
-      setComments('');
+      setComment('');
       setErrors(null);
       // const newComments = await dispatch(getAllCommentsThunk(post.id));
       // setUpdatedComments(newComments);
@@ -49,7 +49,7 @@ const CommentsList = ({post, users}) => {
 
   if (!isLoaded) {
     return <div className="spinner-container">
-      <div className="lds-spinner"></div>
+      <div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
       </div>
   }
 
