@@ -40,7 +40,7 @@ export const getAllLikesThunk = () => async (dispatch) => {
     }
 }
 
-export const createLikeThunk = (id) => async (dispatch) => {
+
 export const createLikeThunk = (id) => async (dispatch) => {
 
     try {
@@ -49,7 +49,7 @@ export const createLikeThunk = (id) => async (dispatch) => {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
             body: JSON.stringify()
-            body: JSON.stringify()
+            
         }
         const res = await csrfFetch(`/api/posts/${id}/likes`, options)
 
@@ -156,5 +156,6 @@ const likesReducer = (state = initialState, action) => {
     }
 
 }
+
 
 export default likesReducer;
