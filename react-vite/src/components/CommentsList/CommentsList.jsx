@@ -12,7 +12,7 @@ const CommentsList = ({post, users}) => {
   const [updatedComments, setUpdatedComments] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [errors, setErrors] = useState();
-
+  const comments = useSelector((state) => state.commentsState.allComments);
   useEffect(() => {
     const getData = async () => {
       const res = await dispatch(getAllCommentsThunk(post.id));
@@ -67,7 +67,7 @@ const CommentsList = ({post, users}) => {
       <div className="comments">
         {updatedComments.map((comment, idx) => (
           <div key={`${idx}-${comment.post_id}`} className="comment-tile">
-            <CommentTile users={users} comment={comment}/>
+            <CommentTile users={users} post={post} comment={comment}/>
           </div>
         ))}
 
