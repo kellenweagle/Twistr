@@ -9,10 +9,6 @@ const UpdatePost = (postId) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const { closeModal } = useModal();
-  // const [imageOne, setImageOne] = useState("")
-  // const [imageTwo, setImageTwo] = useState("")
-  // const [imageThree, setImageThree] = useState("")
-  // const [imageFour, setImageFour] = useState("")
   const [errors, setErrors] = useState();
 
   let postUpdateId;

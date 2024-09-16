@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { GoHomeFill } from "react-icons/go";
 import { FaRegCompass } from "react-icons/fa";
 import { BsLightningChargeFill } from "react-icons/bs";
-import { RiChatSmile2Fill, RiLoginBoxLine } from "react-icons/ri";
+import { RiChatSmile2Fill } from "react-icons/ri";
 import { IoIosMail } from "react-icons/io";
 import { IoPersonSharp } from "react-icons/io5";
 import { HiCog8Tooth } from "react-icons/hi2";
