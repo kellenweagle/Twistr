@@ -62,11 +62,11 @@ export const getOnePostThunk = (postid) => async (dispatch) => {
 }
 
 export const createPostThunk = (post) => async (dispatch) => {
-  
+
   try {
       const options = {
           method: 'POST',
-          header: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(post)
       }
       const res = await csrfFetch(`/api/posts/`, options)
@@ -86,7 +86,7 @@ export const updatePostThunk = (id, post) => async(dispatch) => {
   try {
     const options = {
       method: 'PUT',
-      header: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(post)
     }
 

@@ -13,14 +13,12 @@
   background-color: rgb(112, 182, 6);
   color: white;
   font-family: sans-serif;
+  font-size: 1.25rem;
   font-weight: bold;
-  width: 32px;
+  width: 37.15px;
   height: 32px;
   margin-right: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  line-height: 1;
-  box-sizing: border-box;
+  border-radius: 16px;
 }
 
 .comment-main {
@@ -29,17 +27,42 @@
   padding: 14px;
   border-radius: 8px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
 }
 
+.comment-top-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.username-date {
+  display: flex;
+}
+
 .comment-options {
+  display: flex;
+  align-items: flex-start;
   cursor: pointer;
 }
 
 .comment-options-dots {
   font-size: 1.3rem;
-  color: rgba(0, 0, 0, 0.30);
+  cursor: pointer;
+  background-color: #f2f2f1;;
+  border-radius: 1rem;
+  padding: .25rem;
+}
+
+.comment-options-dots:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.options-list-tab {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
 }
 
 .comment-username {
@@ -50,12 +73,11 @@
   cursor: pointer;
 }
 
-.comment-top-line {
-  display: flex;
-  flex-direction: row;
-}
-
 .comment-date {
   color: rgba(0, 0, 0, 0.40);
   font-size: smaller;
+}
+
+.comment-text {
+  display: flex;
 }

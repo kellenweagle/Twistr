@@ -1,10 +1,15 @@
 import './SideImages.css'
 
 const SideImages = () => {
+  const featureAlert = (e) => {
+    e.preventDefault();
+    alert("Feature coming soon!")
+  };
+
   return (
     <div className="side-image-container">
       <h3>Check out these blogs</h3>
-      <div className="blog-list">
+      <div onClick={featureAlert} className="blog-list">
         <div className='blog-link'>
           <span className='blog-photo-and-text'>
             <img className="blog-photo" src="https://toginet.com/images/twistr/images/blog-1.png" alt=""/>
@@ -46,7 +51,7 @@ const SideImages = () => {
           <button className='blog-follow-button'>Follow</button>
         </div>
       </div>
-      <button className='explore-button-right'>Explore all of Twistr</button>
+      <button onClick={featureAlert}  className='explore-button-right'>Explore all of Twistr</button>
       <h3>Radar</h3>
     </div>
   )

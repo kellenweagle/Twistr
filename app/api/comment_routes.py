@@ -32,8 +32,8 @@ def create_comment(id):
 # update a comment
 @comment_routes.route('/<int:id>/comments/<int:commentId>', methods=['PUT'])
 @login_required
-def update_comment(commentId):
-  comment = Comment.query.get(id)
+def update_comment(id, commentId):
+  comment = Comment.query.get(commentId)
   form = CommentForm()
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
@@ -48,8 +48,9 @@ def update_comment(commentId):
 # delete a comment
 @comment_routes.route('/<int:id>/comments/<int:commentId>', methods=['DELETE'])
 @login_required
-def delete_comment(commentId):
+def delete_comment(id, commentId):
   comment = Comment.query.get(commentId)
+  print('comment', comment)
   user = current_user.to_dict()
 
   if str(comment.user_id) == str(user['id']):

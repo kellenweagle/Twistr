@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { createPostThunk } from "../../redux/posts";
+import { getAllUsersThunk } from "../../redux/user";
 import './createPostModal.css'
 
 function CreatePostModal() {
@@ -28,10 +29,9 @@ function CreatePostModal() {
       image_four: imageFour
     })
 
-    console.log(newPostData, "--------------------- this is the new post")
-
     const newPost = await dispatch(createPostThunk(newPostData))
-        
+    await dispatch(getAllUsersThunk())
+
     if (newPost) {
       setErrors(newPost)
     } else {

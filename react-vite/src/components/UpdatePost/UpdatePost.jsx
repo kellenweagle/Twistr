@@ -1,7 +1,7 @@
 import './UpdatePost.css'
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllPostsThunk, updatePostThunk } from '../../redux/posts';
+import { getAllPostsThunk, getOnePostThunk, updatePostThunk } from '../../redux/posts';
 import { useModal } from "../../context/Modal";
 
 
