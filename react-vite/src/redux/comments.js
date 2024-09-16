@@ -69,7 +69,7 @@ export const updateCommentThunk = (id, commentId, comment) => async (dispatch) =
 
     try {
         const options = {
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(comment)
         }
@@ -95,7 +95,7 @@ export const deleteCommentThunk = (id, commentId) => async (dispatch) => {
             body: JSON.stringify()
         }
 
-        
+
         const deletedComment = await csrfFetch(`/api/posts/${id}/comments/${commentId}`, options)
 
         console.log(deletedComment, 'deleted comment')
@@ -108,7 +108,7 @@ export const deleteCommentThunk = (id, commentId) => async (dispatch) => {
 
             await dispatch(deleteComment(data));
 
-            
+
         } else throw deletedComment
 
     } catch (error) {

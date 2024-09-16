@@ -32,7 +32,7 @@ def create_comment(id):
 # update a comment
 @comment_routes.route('/<int:id>/comments/<int:commentId>', methods=['PUT'])
 @login_required
-def update_comment(commentId):
+def update_comment(id, commentId):
   comment = Comment.query.get(commentId)
   form = CommentForm()
   form['csrf_token'].data = request.cookies['csrf_token']
