@@ -75,9 +75,9 @@ const PostTile = ({users, post}) => {
   let user = users.find((user) => user.id === post.user_id);
   let like = likes.filter((like) => like.post_id == post.id)
 
-  const userLikedPost = likes.some(like => like.user_id === sessionUser.id);
+  // const userLikedPost = likes.some(like => like.user_id === sessionUser.id);
 
-  const userLikedPost = sessionUser ? likes.some(like => like.user_id === sessionUser.id) : null;
+  // const userLikedPost = sessionUser ? likes.some(like => like.user_id === sessionUser.id) : null;
 
 
   if (!user) return <h1>User not found</h1>;
