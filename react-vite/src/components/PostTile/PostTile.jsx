@@ -13,6 +13,7 @@ const PostTile = ({users, post}) => {
   const dispatch = useDispatch();
   const [showComments, setShowComments] = useState(false);
   const [heartAnimation, setHeartAnimation] = useState(false);
+  const [heartColored, setHeartColored] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   let likes = useSelector((state) => state.likesState.allLikes)
@@ -35,7 +36,9 @@ const PostTile = ({users, post}) => {
     if (!loaded) {
       getData();
     }
-  }, [dispatch, loaded, post.id]);
+  }, []);
+
+  let likeAmount;
 
   const handleLike = async (e) => {
     e.preventDefault()
@@ -44,17 +47,20 @@ const PostTile = ({users, post}) => {
     let likesOnPost = likes.filter(like => like.post_id === post.id)
     let userLiked = likesOnPost.filter(like => like.user_id === sessionUser.id)
 
+    // if the user hasnt like the post, then like the post, and if they have liked it, then unlike the post
     if (!userLiked.length) {
       await dispatch(createLikeThunk(post.id))
+      setHeartColored(true)
+      likeAmount++
 
     } else {
       await dispatch(deleteLikeThunk(post.id))
+      setHeartColored(false)
+      likeAmount--
     }
-    // Trigger animation
+  
     setHeartAnimation(true);
-    setTimeout(() => setHeartAnimation(false), 300); // Reset animation state
-
-
+    setTimeout(() => setHeartAnimation(false), 300);
   }
 
   const handleDelete = async (e) => {
@@ -63,7 +69,6 @@ const PostTile = ({users, post}) => {
   };
 
   if (!post || !users || !likes || users.length === 0) {
-
     return null
   }
 
@@ -75,7 +80,6 @@ const PostTile = ({users, post}) => {
 
 
   if (!user) return <h1>User not found</h1>;
-  const likeCount = like.length;
 
   return (
     <div className="post-container">
@@ -114,10 +118,10 @@ const PostTile = ({users, post}) => {
         <pre>{post.post}</pre>
       </div>
       <div className="post-footer">
-        <button className="likes-count"><span>{likeCount}</span> likes</button>
+        <button className="likes-count"><span>{like.length}</span> likes</button>
         <div className="like-comment">
           <FaRegComment className="comment" onClick={handleCommentToggle} />
-          <FaRegHeart className={`like ${userLikedPost ? 'liked' : ''} ${heartAnimation ? 'jump' : ''}`} onClick={e => handleLike(e)} />
+          <FaRegHeart className={`like ${heartColored ? 'liked' : ''} ${heartAnimation ? 'jump' : ''}`} onClick={e => handleLike(e)} />
         </div>
       </div>
       {showComments ? <div className='comments-list-dropdown'>
