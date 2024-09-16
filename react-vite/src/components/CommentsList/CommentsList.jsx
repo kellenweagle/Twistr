@@ -3,7 +3,8 @@ import CommentTile from '../CommentTile'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import './CommentsList.css'
-import { createCommentThunk, getAllCommentsThunk } from "../../redux/comments";
+import { createCommentThunk, getAllCommentsThunk} from "../../redux/comments";
+import { getAllUsersThunk } from "../../redux/user";
 
 const CommentsList = ({post, users}) => {
   const sessionUser = useSelector(state => state.session.user)
@@ -13,9 +14,11 @@ const CommentsList = ({post, users}) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [errors, setErrors] = useState();
   const comments = useSelector((state) => state.commentsState.allComments);
+
   useEffect(() => {
     const getData = async () => {
       const res = await dispatch(getAllCommentsThunk(post.id));
+      await dispatch(getAllUsersThunk())
       if (res) {
         setUpdatedComments(res);
         setIsLoaded(true)
@@ -37,6 +40,8 @@ const CommentsList = ({post, users}) => {
 
     const newComment = await dispatch(createCommentThunk(post.id, newCommentData))
 
+    await dispatch(getAllUsersThunk())
+
     if (newComment.errors) {
       setErrors(newComment.errors)
     } else {
@@ -44,7 +49,6 @@ const CommentsList = ({post, users}) => {
       setErrors(null);
       // const newComments = await dispatch(getAllCommentsThunk(post.id));
       // setUpdatedComments(newComments);
-      await dispatch(getAllUsersThunk())
     }
   };
 
