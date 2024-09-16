@@ -14,6 +14,7 @@ const PostTile = ({users, post}) => {
   const [showComments, setShowComments] = useState(false);
   const [heartAnimation, setHeartAnimation] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
   let likes = useSelector((state) => state.likesState.allLikes)
   const sessionUser = useSelector((state) => state.session.user)
   const updateId = post.id
@@ -21,6 +22,10 @@ const PostTile = ({users, post}) => {
   const handleCommentToggle = () => {
     setShowComments(!showComments);
   };
+
+  const handleOptionsToggle = () => {
+    setShowOptions(!showOptions);
+  }
 
   useEffect(() => {
     const getData = async () => {
@@ -79,10 +84,21 @@ const PostTile = ({users, post}) => {
           <div className="profile-pic">{user.username[0].toLowerCase()}</div>
           <div className="post-info">
             <div className="username">{user.username.toLowerCase()}</div>
-            <div className="post-date">Aug 17</div>
           </div>
         </div>
-        <div className="post-options"><BsThreeDots className='post-options-dots' /></div>
+        {sessionUser.id === user.id ? (
+        showOptions ? <div className='options-list-tab'>
+          <OpenModalButton
+              className='update-post-button'
+              buttonText={<><span style={{color: 'black'}}>UPDATE</span></>}
+              modalComponent={<UpdatePost postid={updateId} />} />
+          <button className='delete-post-button' onClick={handleDelete}>DELETE</button>
+          <div className="post-options">
+            <BsThreeDots className='post-options-dots' onClick={handleOptionsToggle}/>
+          </div>
+        </div> : <div className="post-options">
+            <BsThreeDots className='post-options-dots' onClick={handleOptionsToggle}/>
+          </div>) : null}
       </div>
       <div className='post-image-container'>
         {post.image_one ? <img className='post-image' src={post.image_one} /> : null}
@@ -99,20 +115,6 @@ const PostTile = ({users, post}) => {
           <FaRegComment className="comment" onClick={handleCommentToggle} />
           <FaRegHeart className={`like ${userLikedPost ? 'liked' : ''} ${heartAnimation ? 'jump' : ''}`} onClick={e => handleLike(e)} />
         </div>
-      </div>
-      <div className='manage-post'>
-        {sessionUser ? (
-          sessionUser.id === post.user_id ?
-            (<button className='delete-post-button' onClick={handleDelete}>DELETE</button>)
-            : (null)) : null}
-        {sessionUser ? (
-          sessionUser.id === post.user_id ?
-            (<OpenModalButton
-              className='update-post-button'
-              buttonText={<><span>UPDATE</span></>}
-              modalComponent={<UpdatePost postid={updateId} />} />)
-            : (null)) : null}
-
       </div>
       {showComments ? <div className='comments-list-dropdown'>
         <CommentsList className="comments-list" post={post} users={users}/>
