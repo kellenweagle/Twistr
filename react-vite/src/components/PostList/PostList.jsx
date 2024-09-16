@@ -32,7 +32,6 @@ const PostList = () => {
     return <h1>Loading</h1>
   }
 
-  console.log('post in postlist', posts)
   return (
     <div className="post-list-container">
       <ul className="create-menu">

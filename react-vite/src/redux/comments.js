@@ -35,7 +35,6 @@ export const getAllCommentsThunk = (id) => async (dispatch) => {
         const res = await csrfFetch(`/api/posts/${id}/comments`);
         if (res.ok) {
             const data = await res.json();
-            console.log(data, 'data-----------------')
             await dispatch(getAllComments(data))
         } else {
             throw res;
@@ -48,7 +47,6 @@ export const getAllCommentsThunk = (id) => async (dispatch) => {
 export const createCommentThunk = (id, comment) => async (dispatch) => {
 
     try {
-        console.log(comment, 'in dispatch')
         const options = {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
@@ -58,7 +56,6 @@ export const createCommentThunk = (id, comment) => async (dispatch) => {
 
         if (res.ok) {
             const data = await res.json();
-            console.log(data)
             await dispatch(createComment(data));
         } else throw res;
 
@@ -69,7 +66,6 @@ export const createCommentThunk = (id, comment) => async (dispatch) => {
 export const updateCommentThunk = (id, commentId, comment) => async (dispatch) => {
 
     try {
-        console.log(comment, 'in dispatch')
         const options = {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
@@ -79,7 +75,6 @@ export const updateCommentThunk = (id, commentId, comment) => async (dispatch) =
 
         if (res.ok) {
             const data = await res.json();
-            console.log(data)
             await dispatch(updateComment(data));
         } else throw res;
 

@@ -24,7 +24,6 @@ export const getUserByIdThunk = (id) => async (dispatch) => {
     if (res.ok) {
       const data = await res.json();
       await dispatch(getUserById(data));
-      console.log('userdetails from state in thunk', data)
     } else {
       throw res
     }

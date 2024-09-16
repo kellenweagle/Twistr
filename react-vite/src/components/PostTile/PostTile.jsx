@@ -7,6 +7,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import CommentsList from '../CommentsList';
 import { deletePostThunk } from '../../redux/posts';
+import { createLikeThunk } from '../../redux/likes';
 import UpdatePost from '../UpdatePost';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 
@@ -27,6 +28,7 @@ const PostTile = (post) => {
   let comments = useSelector((state) => state.commentsState.allComments)
   let likes = useSelector((state) => state.likesState.allLikes)
   const sessionUser = useSelector((state) => state.session.user)
+  const like = useSelector((state) => state.likesState.allLikes)
   const updateId = post.id
 
   const handleCommentToggle = () => {
@@ -79,6 +81,14 @@ const PostTile = (post) => {
     await dispatch(deletePostThunk(post.id))
 
   };
+
+
+
+  const handleLike = async (e) => {
+    e.preventDefault();
+
+    await dispatch(createLikeThunk(post.id))
+  }
 
   if (!post || !users || !likes || users.length === 0) {
 
