@@ -1,8 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllUsersThunk } from '../../redux/user';
-import { getAllCommentsThunk } from '../../redux/comments';
 import './PostTile.css';
-import { useEffect, useState, } from 'react';
+import { useState } from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import CommentsList from '../CommentsList';
@@ -10,46 +8,20 @@ import { deletePostThunk } from '../../redux/posts';
 import UpdatePost from '../UpdatePost';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 
-const PostTile = (post) => {
-  post = post.post
+const PostTile = ({users, post}) => {
   const dispatch = useDispatch();
-  const [loaded, setLoaded] = useState(false);
-  const [commentsLoading, setCommentsLoading] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  let users = useSelector(state => state.userState.allUsers);
-  let comments = useSelector((state) => state.commentsState.allComments)
   const sessionUser = useSelector((state) => state.session.user)
   const updateId = post.id
-  
+
   const handleCommentToggle = () => {
     setShowComments(!showComments);
   };
 
-  useEffect(() => {
-
-      const getData = async () => {
-        setCommentsLoading(true);
-        await dispatch(getAllUsersThunk());
-        await dispatch(getAllCommentsThunk(post.id));
-        setLoaded(true);
-        setCommentsLoading(false);
-      };
-      if (!loaded || showComments) {
-        getData();
-      }
-
-  }, [dispatch, loaded, post.id, showComments]);
-
   const handleDelete = async (e) => {
     e.preventDefault();
-
     await dispatch(deletePostThunk(post.id))
-
   };
-
-  if(!post || !users || users.length === 0) {
-    return <h1>Loading...</h1>
-  }
 
   let user = users.find((user) => user.id === post.user_id);
 
@@ -59,7 +31,7 @@ const PostTile = (post) => {
     <div className="post-container">
       <div className="post-header">
         <div className="post-header-left">
-          <div className="profile-pic">{user.username[0].toUpperCase()}</div>
+          <div className="profile-pic">{user.username[0].toLowerCase()}</div>
           <div className="post-info">
             <div className="username">{user.username.toLowerCase()}</div>
             <div className="post-date">Aug 17</div>
@@ -69,8 +41,9 @@ const PostTile = (post) => {
       </div>
       <div className='post-image-container'>
         {post.images.length ? post.images.map((image, idx) => (
-          <div 
+          <div
           className='post-image-url'
+          key={`${idx}-${image.url}`}
           >
           <img className='post-image' src={image.url}/>
           </div>
@@ -101,11 +74,7 @@ const PostTile = (post) => {
 
       </div>
       {showComments ? <div className='comments-list-dropdown'>
-        {commentsLoading ? (
-          <p>Loading comments...</p>
-        ) : (
-          <CommentsList className="comments-list" comments={comments}/>
-        )}
+        <CommentsList className="comments-list" post={post} users={users}/>
       </div> : null}
     </div>
   )

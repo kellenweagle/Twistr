@@ -10,15 +10,19 @@ import PostTile from "../PostTile";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllPostsThunk } from "../../redux/posts";
+import { getAllUsersThunk } from "../../redux/user";
+
 
 const PostList = () => {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   let posts = useSelector(state => state.postState.allPosts);
+  let users = useSelector(state => state.userState.allUsers)
 
   useEffect(() => {
     const getData = async () => {
       await dispatch(getAllPostsThunk());
+      await dispatch(getAllUsersThunk());
       setIsLoaded(true);
     }
     if (!isLoaded && !posts.length) {
@@ -30,7 +34,6 @@ const PostList = () => {
     return <h1>Loading</h1>
   }
 
-  console.log('post in postlist', posts)
   return (
     <div className="post-list-container">
       <ul className="create-menu">
@@ -66,7 +69,7 @@ const PostList = () => {
       <div className="posts">
         {posts.map((post, idx) => (
           <div key={`${idx}-${post.user_id}`} className="post-tile">
-            <PostTile post={post}/>
+            <PostTile post={post} users={users}/>
           </div>
         ))}
       </div>

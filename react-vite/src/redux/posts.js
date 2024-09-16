@@ -37,7 +37,6 @@ export const getAllPostsThunk = () => async (dispatch) => {
     const res = await csrfFetch('/api/posts');
     if (res.ok) {
       const data = await res.json();
-      console.log(data, 'data-----------------')
       await dispatch(getAllPosts(data))
     } else {
       throw res;
@@ -50,11 +49,9 @@ export const getAllPostsThunk = () => async (dispatch) => {
 export const getOnePostThunk = (postid) => async (dispatch) => {
   try {
     const res = await csrfFetch(`/api/posts/${postid}`)
-    console.log('we are in the thunk', res)
     if(res.ok) {
       const data = await res.json();
       await dispatch(getOnePost(data))
-      console.log('we are in the thunk UNDER res')
     } else {
       throw res;
     }
@@ -65,12 +62,12 @@ export const getOnePostThunk = (postid) => async (dispatch) => {
 }
 
 export const createPostThunk = (post) => async (dispatch) => {
-  
+
   try {
     console.log(post, 'in dispatch')
       const options = {
           method: 'POST',
-          header: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(post)
       }
       const res = await csrfFetch(`/api/posts/`, options)
@@ -90,7 +87,7 @@ export const updatePostThunk = (id, post) => async(dispatch) => {
   try {
     const options = {
       method: 'PUT',
-      header: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(post)
     }
     console.log("we are in the thunk")
