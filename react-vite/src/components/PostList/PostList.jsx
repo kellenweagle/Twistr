@@ -37,9 +37,14 @@ const PostList = () => {
     return <h1>Loading</h1>
   }
 
+  const featureAlert = (e) => {
+    e.preventDefault();
+    alert("Feature coming soon!")
+  };
+
   return (
     <div className="post-list-container">
-      <ul className="create-menu">
+      <ul onClick={featureAlert} className="create-menu">
         <li className="post-text">
           <IoTextSharp className="create-icon" />
           Text
