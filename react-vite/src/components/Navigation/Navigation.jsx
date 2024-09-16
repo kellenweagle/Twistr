@@ -31,7 +31,7 @@ function Navigation() {
         </li>
 
         <li>
-          <form className='search-form' action="">
+          <form onClick={featureAlert} className='search-form' action="">
             <FaSearch className="search-icon" />
             <input type="text" placeholder="Search Twistr" name='search' className="search"/>
           </form>
