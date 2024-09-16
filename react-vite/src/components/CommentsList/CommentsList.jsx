@@ -49,7 +49,7 @@ const CommentsList = ({post, users}) => {
 
   if (!isLoaded) {
     return <div className="spinner-container">
-      <div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      <div className="lds-spinner"></div>
       </div>
   }
 

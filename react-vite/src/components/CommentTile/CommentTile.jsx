@@ -14,7 +14,6 @@ function CommentTile({users, post, comment}) {
   const commentsState = useSelector(state => state.commentsState.allComments)
 
 
-
   const handleCommentToggle = () => {
     setShowOptions(!showOptions);
   }
@@ -35,9 +34,6 @@ function CommentTile({users, post, comment}) {
     e.stopPropagation()
 
     await dispatch(deleteCommentThunk(post.id, comment.id))
-
-
-
   }
 
   let user = users.find((user) => user.id === comment.user_id);
@@ -53,7 +49,7 @@ function CommentTile({users, post, comment}) {
             sessionUser.id === user.id ? (
           showOptions ? <div className='options-list-tab'>
             <button className="edit-comment">Edit</button>
-            <button className="delete-comment">Delete</button>
+            <button onClick={handleDelete} className="delete-comment">Delete</button>
             <div className="comment-options">
               <BsThreeDots className='comment-options-dots' onClick={handleCommentToggle}/>
             </div>
