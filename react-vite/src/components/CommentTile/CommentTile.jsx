@@ -9,6 +9,8 @@ import { updateCommentThunk } from '../../redux/comments';
 
 function CommentTile({users, post, comment}) {
   const dispatch = useDispatch();
+  const sessionUser = useSelector(state => state.session.user)
+  const comments = useSelector(state => state.commentsState.allComments)
   const [isLoaded, setIsLoaded] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [showUpdateField, setShowUpdateField] = useState(false);
