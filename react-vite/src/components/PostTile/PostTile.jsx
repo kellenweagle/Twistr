@@ -1,39 +1,28 @@
 import { useSelector, useDispatch } from 'react-redux';
 import './PostTile.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import CommentsList from '../CommentsList';
 import { deletePostThunk } from '../../redux/posts';
-import { createLikeThunk } from '../../redux/likes';
 import UpdatePost from '../UpdatePost';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
-
 import { createLikeThunk, deleteLikeThunk, getAllLikesThunk } from '../../redux/likes';
-
-
-
-
 
 const PostTile = ({users, post}) => {
   const dispatch = useDispatch();
   const [showComments, setShowComments] = useState(false);
   const [heartAnimation, setHeartAnimation] = useState(false);
-  let users = useSelector(state => state.userState.allUsers);
-  let comments = useSelector((state) => state.commentsState.allComments)
+  const [loaded, setLoaded] = useState(false);
   let likes = useSelector((state) => state.likesState.allLikes)
   const sessionUser = useSelector((state) => state.session.user)
-  const like = useSelector((state) => state.likesState.allLikes)
   const updateId = post.id
-
 
   const handleCommentToggle = () => {
     setShowComments(!showComments);
   };
 
-
   useEffect(() => {
-
     const getData = async () => {
       await dispatch(getAllLikesThunk())
       setLoaded(true);
@@ -41,10 +30,7 @@ const PostTile = ({users, post}) => {
     if (!loaded || showComments) {
       getData();
     }
-
   }, [dispatch, loaded, post.id, showComments]);
-
-
 
   const handleLike = async (e) => {
     e.preventDefault()
@@ -70,14 +56,6 @@ const PostTile = ({users, post}) => {
     e.preventDefault();
     await dispatch(deletePostThunk(post.id))
   };
-
-
-
-  const handleLike = async (e) => {
-    e.preventDefault();
-
-    await dispatch(createLikeThunk(post.id))
-  }
 
   if (!post || !users || !likes || users.length === 0) {
 
