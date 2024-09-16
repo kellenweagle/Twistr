@@ -3,13 +3,15 @@ import { getUserByIdThunk } from '../../redux/user';
 import { BsThreeDots } from "react-icons/bs";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteCommentThunk } from '../../redux/comments';
+import { deleteCommentThunk, getAllCommentsThunk } from '../../redux/comments';
+import commentsReducer from '../../redux/images';
 
 function CommentTile({users, post, comment}) {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const sessionUser = useSelector(state => state.session.user)
+  const commentsState = useSelector(state => state.commentsState.allComments)
   
   
 
@@ -33,6 +35,7 @@ function CommentTile({users, post, comment}) {
     e.stopPropagation()
 
     await dispatch(deleteCommentThunk(post.id, comment.id))
+    
     
       
   }

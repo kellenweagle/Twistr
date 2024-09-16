@@ -18,7 +18,6 @@ const PostList = () => {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   let posts = useSelector(state => state.postState.allPosts);
-  let likes = useSelector((state) => state.likesState.byPostId)
   let users = useSelector(state => state.userState.allUsers)
 
   useEffect(() => {
