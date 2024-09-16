@@ -10,7 +10,6 @@ import PostTile from "../PostTile";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllPostsThunk } from "../../redux/posts";
-import { getAllLikesThunk } from "../../redux/likes";
 import { getAllUsersThunk } from "../../redux/user";
 
 
@@ -23,7 +22,6 @@ const PostList = () => {
   useEffect(() => {
     const getData = async () => {
       await dispatch(getAllPostsThunk());
-      await dispatch(getAllLikesThunk())
       await dispatch(getAllUsersThunk());
       setIsLoaded(true);
     }
@@ -36,9 +34,14 @@ const PostList = () => {
     return <h1>Loading</h1>
   }
 
+  const featureAlert = (e) => {
+    e.preventDefault();
+    alert("Feature coming soon!")
+  };
+
   return (
     <div className="post-list-container">
-      <ul className="create-menu">
+      <ul onClick={featureAlert} className="create-menu">
         <li className="post-text">
           <IoTextSharp className="create-icon" />
           Text

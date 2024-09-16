@@ -49,6 +49,7 @@
   font-size: 1.25rem;
   cursor: pointer;
   border: none;
+  margin-top: 20px;
 }
 
 .create-btn-container button span {
