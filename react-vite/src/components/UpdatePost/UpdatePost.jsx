@@ -9,6 +9,11 @@ const UpdatePost = (postId) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const { closeModal } = useModal();
+  // const [imageOne, setImageOne] = useState("")
+  // const [imageTwo, setImageTwo] = useState("")
+  // const [imageThree, setImageThree] = useState("")
+  // const [imageFour, setImageFour] = useState("")
+  const [errors, setErrors] = useState();
 
   let postUpdateId;
 
@@ -19,7 +24,13 @@ const UpdatePost = (postId) => {
 
   const postToUpdate = useSelector(state => state.postState.byId[postUpdateId])
 
-  const [post, setPost] = useState({post: postToUpdate.post});
+  const [post, setPost] = useState({post: postToUpdate.post,
+    image_one: postToUpdate.image_one,
+    image_two: postToUpdate.image_one,
+    image_three: postToUpdate.image_one,
+    image_four: postToUpdate.image_one,
+
+  });
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
@@ -36,6 +47,10 @@ const UpdatePost = (postId) => {
 
     if(postToUpdate) {
       updatePost(postToUpdate.post, 'post')
+      updatePost(postToUpdate.image_one, 'image_one')
+      updatePost(postToUpdate.image_two, 'image_two')
+      updatePost(postToUpdate.image_three, 'image_three')
+      updatePost(postToUpdate.image_four, 'image_four')
     }
 
   }, [setLoaded])
@@ -73,6 +88,54 @@ const UpdatePost = (postId) => {
             required
           />
         </label>
+        </div>
+        <div>
+          <label className="label-input">
+            <textarea
+              className="image-input"
+              type="text"
+              value={post.image_one}
+              placeholder="Image"
+              onChange={(e) => updatePost(e.target.value, 'image_one')}
+            />
+          </label>
+          {errors && <p>{errors}</p>}
+        </div>
+        <div>
+          <label className="label-input">
+            <textarea
+              className="image-input"
+              type="text"
+              value={post.image_two}
+              placeholder="Image"
+              onChange={(e) => updatePost(e.target.value, 'image_two')}
+            />
+          </label>
+          {errors && <p>{errors}</p>}
+        </div>
+        <div>
+          <label className="label-input">
+            <textarea
+              className="image-input"
+              type="text"
+              value={post.image_three}
+              placeholder="Image"
+              onChange={(e) => updatePost(e.target.value, 'image_three')}
+            />
+          </label>
+          {errors && <p>{errors}</p>}
+        </div>
+        <div>
+          <label className="label-input">
+            <textarea
+              className="image-input"
+              type="text"
+              value={post.image_four}
+              placeholder="Image"
+              onChange={(e) => updatePost(e.target.value, 'image_four')}
+            />
+            </label>
+          {errors && <p>{errors}</p>}
         </div>
         <button className="post-now">Post</button>
       </form>

@@ -60,6 +60,10 @@ def update(id):
     user = current_user.to_dict()
     if str(post.user_id) == str(user['id']):
       post.post = form.data['post']
+      post.image_one = form.data['image_one']
+      post.image_two = form.data['image_two']
+      post.image_three = form.data['image_three']
+      post.image_four = form.data['image_four']
 
       db.session.commit()
       return post.to_dict()
