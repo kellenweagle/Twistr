@@ -7,7 +7,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import CommentsList from '../CommentsList';
 import { deletePostThunk } from '../../redux/posts';
-import { createLikeThunk } from '../../redux/likes';
+
 import UpdatePost from '../UpdatePost';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 
@@ -28,7 +28,7 @@ const PostTile = (post) => {
   let comments = useSelector((state) => state.commentsState.allComments)
   let likes = useSelector((state) => state.likesState.allLikes)
   const sessionUser = useSelector((state) => state.session.user)
-  const like = useSelector((state) => state.likesState.allLikes)
+ 
   const updateId = post.id
 
   const handleCommentToggle = () => {
@@ -55,32 +55,7 @@ const PostTile = (post) => {
 
 
 
-  const handleLike = async (e) => {
-    e.preventDefault()
-    e.stopPropagation();
 
-    let likesOnPost = likes.filter(like => like.post_id === post.id)
-    let userLiked = likesOnPost.filter(like => like.user_id === sessionUser.id)
-
-    if (!userLiked.length) {
-      await dispatch(createLikeThunk(post.id))
-
-    } else {
-      await dispatch(deleteLikeThunk(post.id))
-    }
-    // Trigger animation
-    setHeartAnimation(true);
-    setTimeout(() => setHeartAnimation(false), 300); // Reset animation state
-
-
-  }
-
-  const handleDelete = async (e) => {
-    e.preventDefault();
-
-    await dispatch(deletePostThunk(post.id))
-
-  };
 
 
 
