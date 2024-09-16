@@ -1,15 +1,15 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Post,Image, db
-from app.forms import PostForm
+from app.forms import PostForm, ImageForm
 
 post_routes = Blueprint('posts', __name__)
 
 # Get all posts
 @post_routes.route('/')
 def posts():
-  posts = Post.query.join(Image, Post.id == Image.post_id).distinct(Post.id).all()
-  print(posts[1], '___________________posts_________')
+  posts = Post.query.outerjoin(Image, Post.id == Image.post_id).distinct(Post.id).all()
+ 
   return {'posts': [post.to_dict() for post in posts]}
 
 # Get One Post
@@ -25,20 +25,28 @@ def get_one_post(id):
 def post():
   
   form = PostForm()
-  
+ 
+   
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     user = current_user.to_dict()
-    print(user,'user')
 
-    post = Post(
+    print("Form Data:", form.data)
+    
+    new_post = Post(
       post=form.data['post'],
-      user_id=str(user["id"])
+      user_id=str(user["id"]),
+      image_one=form.data['image_one'],
+      image_two=form.data['image_two'],
+      image_three=form.data['image_three'],
+      image_four=form.data['image_four'],
     )
-    print(post, 'post')
-    db.session.add(post)
+    print(new_post, 'pppppppppppppppppppoooooooooooooooosssssssssssssssstttttttttt')
+    db.session.add(new_post)
     db.session.commit()
-    return post.to_dict()
+    
+
+    return new_post.to_dict()
   return form.errors, 401
 
 # Update a post
@@ -52,6 +60,10 @@ def update(id):
     user = current_user.to_dict()
     if str(post.user_id) == str(user['id']):
       post.post = form.data['post']
+      post.image_one = form.data['image_one']
+      post.image_two = form.data['image_two']
+      post.image_three = form.data['image_three']
+      post.image_four = form.data['image_four']
 
       db.session.commit()
       return post.to_dict()
