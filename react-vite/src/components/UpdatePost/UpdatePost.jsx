@@ -9,7 +9,7 @@ const UpdatePost = (postId) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const { closeModal } = useModal();
-  const [errors] = useState();
+  const [errors, setErrors] = useState();
 
   let postUpdateId;
 
@@ -48,7 +48,7 @@ const UpdatePost = (postId) => {
       updatePost(postToUpdate.image_four, 'image_four')
     }
 
-  }, [setLoaded, loaded, post, postToUpdate, postUpdateId, dispatch])
+  }, [setLoaded])
 
   const updatePost = (val, key) => {
     return setPost((prev) => {
