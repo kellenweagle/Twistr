@@ -30,8 +30,9 @@
 .input-icon {
   display: flex;
   align-items: center;
-  height: 28px;
+  height: 32px;
   border: 2px solid #bfbfbf;
+  background-color: white;
   color: #bfbfbf;
   font-size: 1.25rem;
   border-left: none;

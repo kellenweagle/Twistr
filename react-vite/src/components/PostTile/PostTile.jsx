@@ -1,8 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllUsersThunk } from '../../redux/user';
-import { getAllCommentsThunk } from '../../redux/comments';
 import './PostTile.css';
-import { useEffect, useState, } from 'react';
+import { useState } from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import CommentsList from '../CommentsList';
@@ -17,11 +15,8 @@ import { createLikeThunk, deleteLikeThunk, getAllLikesThunk } from '../../redux/
 
 
 
-const PostTile = (post) => {
-  post = post.post
+const PostTile = ({users, post}) => {
   const dispatch = useDispatch();
-  const [loaded, setLoaded] = useState(false);
-  const [commentsLoading, setCommentsLoading] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [heartAnimation, setHeartAnimation] = useState(false);
   let users = useSelector(state => state.userState.allUsers);
@@ -31,6 +26,7 @@ const PostTile = (post) => {
   const like = useSelector((state) => state.likesState.allLikes)
   const updateId = post.id
 
+
   const handleCommentToggle = () => {
     setShowComments(!showComments);
   };
@@ -39,13 +35,8 @@ const PostTile = (post) => {
   useEffect(() => {
 
     const getData = async () => {
-      setCommentsLoading(true);
-      await dispatch(getAllUsersThunk());
-      await dispatch(getAllCommentsThunk(post.id));
       await dispatch(getAllLikesThunk())
-
       setLoaded(true);
-      setCommentsLoading(false);
     };
     if (!loaded || showComments) {
       getData();
@@ -77,9 +68,7 @@ const PostTile = (post) => {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-
     await dispatch(deletePostThunk(post.id))
-
   };
 
 
@@ -109,7 +98,7 @@ const PostTile = (post) => {
     <div className="post-container">
       <div className="post-header">
         <div className="post-header-left">
-          <div className="profile-pic">{user.username[0].toUpperCase()}</div>
+          <div className="profile-pic">{user.username[0].toLowerCase()}</div>
           <div className="post-info">
             <div className="username">{user.username.toLowerCase()}</div>
             <div className="post-date">Aug 17</div>
@@ -118,7 +107,7 @@ const PostTile = (post) => {
         <div className="post-options"><BsThreeDots className='post-options-dots' /></div>
       </div>
       <div className='post-image-container'>
-        {post.image_one ? <img className='post-image' src={post.image_one} /> : null}
+      {post.image_one ? <img className='post-image' src={post.image_one} /> : null}
         {post.image_two ? <img className='post-image' src={post.image_two} /> : null}
         {post.image_three ? <img className='post-image' src={post.image_three} /> : null}
         {post.image_four ? <img className='post-image' src={post.image_four} /> : null}
@@ -148,11 +137,7 @@ const PostTile = (post) => {
 
       </div>
       {showComments ? <div className='comments-list-dropdown'>
-        {commentsLoading ? (
-          <p>Loading comments...</p>
-        ) : (
-          <CommentsList className="comments-list" comments={comments} />
-        )}
+        <CommentsList className="comments-list" post={post} users={users}/>
       </div> : null}
     </div>
   )

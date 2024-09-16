@@ -4,38 +4,47 @@ import { BsThreeDots } from "react-icons/bs";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-function CommentTile(comment) {
-  comment = comment.comment
+function CommentTile({users, comment}) {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  let user = useSelector(state => state.userState.userDetails);
-  const [userDetails, setUserDetails] = useState(user);
+  const [showOptions, setShowOptions] = useState(false);
+  const sessionUser = useSelector(state => state.session.user)
+
+  const handleCommentToggle = () => {
+    setShowOptions(!showOptions);
+  }
 
   useEffect(() => {
     const getData = async () => {
       await dispatch(getUserByIdThunk(comment.user_id));
       setIsLoaded(true);
-      setUserDetails(user)
     }
     if (!isLoaded) {
       getData();
     }
-  }, [comment.user_id, dispatch, isLoaded, user])
+  }, [comment.user_id, dispatch, isLoaded])
 
-  if(!user) return <h1>User not found</h1>;
+  let user = users.find((user) => user.id === comment.user_id);
 
   return (
     <div className='comment-tile-container'>
-      <div className='profile-pic-comment'>{userDetails.username[0].toUpperCase()}</div>
+      <div className='profile-pic-comment'>{user.username[0].toLowerCase()}</div>
       <div className='comment-main'>
-        <div className='comment-left'>
-          <div className='comment-top-line'>
-            <div className='comment-username'>{userDetails.username.toLowerCase()}</div>
-            <div className='comment-date'>Aug 17</div>
+
+        <div className='comment-top-line'>
+          <div className='comment-username'>{user.username.toLowerCase()}</div>
+          {sessionUser.id === user.id ? (
+        showOptions ? <div className='options-list-tab'>
+          <button className="edit-comment">Edit</button>
+          <button className="delete-comment">Delete</button>
+          <div className="comment-options">
+            <BsThreeDots className='comment-options-dots' onClick={handleCommentToggle}/>
           </div>
-          <div className='comment-text'>{comment.comment}</div>
+        </div> : <div className="comment-options">
+            <BsThreeDots className='comment-options-dots' onClick={handleCommentToggle}/>
+          </div>) : null}
         </div>
-        <div className="comment-options"><BsThreeDots className='comment-options-dots'/></div>
+        <div className='comment-text'>{comment.comment}</div>
       </div>
     </div>
   )
