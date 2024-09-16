@@ -13,7 +13,7 @@ import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import { createLikeThunk, deleteLikeThunk, getAllLikesThunk } from '../../redux/likes';
 
 
-import { createLikeThunk, deleteLikeThunk, getAllLikesThunk } from '../../redux/likes';
+
 
 
 const PostTile = (post) => {
@@ -23,10 +23,8 @@ const PostTile = (post) => {
   const [commentsLoading, setCommentsLoading] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [heartAnimation, setHeartAnimation] = useState(false);
-  const [heartAnimation, setHeartAnimation] = useState(false);
   let users = useSelector(state => state.userState.allUsers);
   let comments = useSelector((state) => state.commentsState.allComments)
-  let likes = useSelector((state) => state.likesState.allLikes)
   let likes = useSelector((state) => state.likesState.allLikes)
   const sessionUser = useSelector((state) => state.session.user)
   const updateId = post.id
@@ -43,7 +41,7 @@ const PostTile = (post) => {
         await dispatch(getAllUsersThunk());
         await dispatch(getAllCommentsThunk(post.id));
         await dispatch(getAllLikesThunk())
-        await dispatch(getAllLikesThunk())
+        
         setLoaded(true);
         setCommentsLoading(false);
       };
@@ -53,25 +51,7 @@ const PostTile = (post) => {
 
   }, [dispatch, loaded, post.id, showComments]);
 
-  const handleLike = async(e) => {
-    e.preventDefault()
-    e.stopPropagation();
-    
-    let likesOnPost = likes.filter(like => like.post_id === post.id)
-    let userLiked = likesOnPost.filter(like => like.user_id === sessionUser.id)
-    
-    if (!userLiked.length) {
-      await dispatch(createLikeThunk(post.id))
-      
-    } else {
-      await dispatch(deleteLikeThunk(post.id))
-    }
-    // Trigger animation
-    setHeartAnimation(true);
-    setTimeout(() => setHeartAnimation(false), 300); // Reset animation state
   
-    
-  }
 
   const handleLike = async(e) => {
     e.preventDefault()
@@ -101,7 +81,7 @@ const PostTile = (post) => {
   };
 
   if(!post || !users || !likes || users.length === 0) {
-  if(!post || !users || !likes || users.length === 0) {
+  
     return <h1>Loading...</h1>
   }
 
