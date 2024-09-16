@@ -85,7 +85,7 @@ const PostTile = ({users, post}) => {
         <div className="post-options"><BsThreeDots className='post-options-dots' /></div>
       </div>
       <div className='post-image-container'>
-      {post.image_one ? <img className='post-image' src={post.image_one} /> : null}
+        {post.image_one ? <img className='post-image' src={post.image_one} /> : null}
         {post.image_two ? <img className='post-image' src={post.image_two} /> : null}
         {post.image_three ? <img className='post-image' src={post.image_three} /> : null}
         {post.image_four ? <img className='post-image' src={post.image_four} /> : null}

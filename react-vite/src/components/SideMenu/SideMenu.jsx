@@ -50,9 +50,9 @@ function SideMenu() {
     navigate('/');
   };
 
-  const goHome = (e) => {
+  const featureAlert = (e) => {
     e.preventDefault();
-    navigate('/');
+    alert("Feature coming soon!")
   };
 
   return (
@@ -61,26 +61,26 @@ function SideMenu() {
       {sessionUser ? (
         <>
           <div className="side-menu-logged">
-            <button onClick={goHome} className="home-button">
+            <button onClick={featureAlert} className="home-button">
               <GoHomeFill className="menu-icon"/> Home
             </button>
-            <button className="explore-button">
+            <button onClick={featureAlert}  className="explore-button">
               <FaRegCompass className="menu-icon"/> Explore
             </button>
-            <button className="activity-button">
+            <button onClick={featureAlert} className="activity-button">
               <BsLightningChargeFill className="menu-icon"/> Activity
             </button>
-            <button className="messages-button">
+            <button onClick={featureAlert}  className="messages-button">
               <RiChatSmile2Fill className="menu-icon"/> Messages
             </button>
-            <button className="inbox-button">
+            <button onClick={featureAlert}  className="inbox-button">
               <IoIosMail className="menu-icon"/> Inbox
+            </button>
+            <button onClick={featureAlert}  className="settings-button">
+              <HiCog8Tooth className="menu-icon"/> Settings
             </button>
             <button className="account-button" onClick={logout}>
               <IoPersonSharp className="menu-icon"/> Logout
-            </button>
-            <button className="settings-button">
-              <HiCog8Tooth className="menu-icon"/> Settings
             </button>
           </div>
           <div className="create-btn-container">
