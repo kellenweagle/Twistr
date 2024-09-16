@@ -24,7 +24,7 @@ const PostList = () => {
   useEffect(() => {
     const getData = async () => {
       await dispatch(getAllPostsThunk());
-      await dispatch(getAllLikesThunk())
+      // await dispatch(getAllLikesThunk())
       await dispatch(getAllUsersThunk());
       setIsLoaded(true);
     }
