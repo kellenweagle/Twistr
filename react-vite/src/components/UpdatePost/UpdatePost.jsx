@@ -1,7 +1,7 @@
 import './UpdatePost.css'
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllPostsThunk, updatePostThunk } from '../../redux/posts';
+import { getAllPostsThunk, getOnePostThunk, updatePostThunk } from '../../redux/posts';
 import { useModal } from "../../context/Modal";
 
 
@@ -9,7 +9,7 @@ const UpdatePost = (postId) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const { closeModal } = useModal();
-  const [errors, setErrors] = useState();
+  const [errors] = useState();
 
   let postUpdateId;
 
@@ -48,7 +48,7 @@ const UpdatePost = (postId) => {
       updatePost(postToUpdate.image_four, 'image_four')
     }
 
-  }, [setLoaded])
+  }, [setLoaded, loaded, post, postToUpdate, postUpdateId, dispatch])
 
   const updatePost = (val, key) => {
     return setPost((prev) => {
