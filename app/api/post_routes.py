@@ -25,34 +25,28 @@ def get_one_post(id):
 def post():
   
   form = PostForm()
-  # image_form = ImageForm()
-  
-  # image_form['csrf_token'].data = request.cookies['csrf_token']
-  # if image_form.validate_on_submit():
-  #   user = current_user.to_dict()
+ 
    
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     user = current_user.to_dict()
+
+    print("Form Data:", form.data)
+    
+    new_post = Post(
+      post=form.data['post'],
+      user_id=str(user["id"]),
+      image_one=form.data['image_one'],
+      image_two=form.data['image_two'],
+      image_three=form.data['image_three'],
+      image_four=form.data['image_four'],
+    )
+    print(new_post, 'pppppppppppppppppppoooooooooooooooosssssssssssssssstttttttttt')
+    db.session.add(new_post)
+    db.session.commit()
     
 
-    post = Post(
-      post=form.data['post'],
-      user_id=str(user["id"])
-    )
-    print(post, 'post')
-    db.session.add(post)
-    db.session.commit()
-    print(post.id)
-
-    # image = Image(
-    #   url=image_form.data['url'],
-    #   post_id=post.id
-    # )
-    # db.session.add(image)
-    # db.session.commit()
-
-    return post.to_dict()
+    return new_post.to_dict()
   return form.errors, 401
 
 # Update a post

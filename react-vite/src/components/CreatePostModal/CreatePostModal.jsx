@@ -7,6 +7,10 @@ import './createPostModal.css'
 function CreatePostModal() {
   const dispatch = useDispatch();
   const [post, setPost] = useState("");
+  const [imageOne, setImageOne] = useState("")
+  const [imageTwo, setImageTwo] = useState("")
+  const [imageThree, setImageThree] = useState("")
+  const [imageFour, setImageFour] = useState("")
   const user = useSelector(state => state.session.user)
 
   const [errors, setErrors] = useState();
@@ -17,8 +21,14 @@ function CreatePostModal() {
     e.stopPropagation();
 
     const newPostData = ({
-      post: post
+      post: post,
+      image_one: imageOne,
+      image_two: imageTwo,
+      image_three: imageThree,
+      image_four: imageFour
     })
+
+    console.log(newPostData, "--------------------- this is the new post")
 
     const newPost = await dispatch(createPostThunk(newPostData))
         
@@ -32,19 +42,67 @@ function CreatePostModal() {
   return (
     <div className="create-post">
       <p className="create-post-username">{user.username.toLowerCase()}</p>
-      <form className='form' onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div>
-        <label className="label-input">
-          <textarea
-            className="post-input"
-            type="text"
-            value={post}
-            placeholder="Go ahead, put anything."
-            onChange={(e) => setPost(e.target.value)}
-            required
-          />
-        </label>
-        {errors && <p>{errors}</p>}
+          <label className="form">
+            <textarea
+              className="post-input"
+              type="text"
+              value={post}
+              placeholder="Go ahead, put anything."
+              onChange={(e) => setPost(e.target.value)}
+              required
+            />
+          </label>
+          {errors && <p>{errors}</p>}
+        </div>
+        <div>
+          <label className="label-input">
+            <textarea
+              className="image-input"
+              type="text"
+              value={imageOne}
+              placeholder="Image"
+              onChange={(e) => setImageOne(e.target.value)}
+            />
+          </label>
+          {errors && <p>{errors}</p>}
+        </div>
+        <div>
+          <label className="label-input">
+            <textarea
+              className="image-input"
+              type="text"
+              value={imageTwo}
+              placeholder="Image"
+              onChange={(e) => setImageTwo(e.target.value)}
+            />
+          </label>
+          {errors && <p>{errors}</p>}
+        </div>
+        <div>
+          <label className="label-input">
+            <textarea
+              className="image-input"
+              type="text"
+              value={imageThree}
+              placeholder="Image"
+              onChange={(e) => setImageThree(e.target.value)}
+            />
+          </label>
+          {errors && <p>{errors}</p>}
+        </div>
+        <div>
+          <label className="label-input">
+            <textarea
+              className="image-input"
+              type="text"
+              value={imageFour}
+              placeholder="Image"
+              onChange={(e) => setImageFour(e.target.value)}
+            />
+          </label>
+          {errors && <p>{errors}</p>}
         </div>
         <button className="post-now">Post</button>
       </form>

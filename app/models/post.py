@@ -15,12 +15,11 @@ class Post(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   post = db.Column(db.String(10000), nullable=True)
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-  # created_at = db.Column(
-  #   db.DateTime, default=datetime.now
-  # )
-  # updated_at = db.Column(
-  #   db.DateTime, default=datetime.now, onupdate=datetime.now
-  # )
+  image_one = db.Column(db.String(255), nullable=True)
+  image_two = db.Column(db.String(255), nullable=True)
+  image_three = db.Column(db.String(255), nullable=True)
+  image_four = db.Column(db.String(255), nullable=True)
+
   comments = db.relationship('Comment', back_populates='posts', cascade="all, delete-orphan")
   likes = db.relationship('Like', back_populates='posts', cascade="all, delete-orphan")
   images = db.relationship('Image', back_populates='posts', cascade="all, delete-orphan")
@@ -31,6 +30,8 @@ class Post(db.Model):
       'id': self.id,
       'post': self.post,
       'user_id': self.user_id,
-      'images': [image.to_dict() for image in self.images]
-      
+      'image_one': self.image_one,
+      'image_two': self.image_two,
+      'image_three': self.image_three,
+      'image_four': self.image_four,
     }
