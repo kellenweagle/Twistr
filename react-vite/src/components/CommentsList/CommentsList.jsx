@@ -41,6 +41,7 @@ const CommentsList = ({post, users}) => {
     const newComment = await dispatch(createCommentThunk(post.id, newCommentData))
 
     await dispatch(getAllUsersThunk())
+    await dispatch(getAllCommentsThunk())
 
     if (newComment.errors) {
       setErrors(newComment.errors)
@@ -80,7 +81,7 @@ const CommentsList = ({post, users}) => {
 
       )}
       <div className="comments">
-        {comments.map((comment, idx) => (
+        {updatedComments.map((comment, idx) => (
           <div key={`${idx}-${comment.post_id}`} className="comment-tile">
             <CommentTile users={users} post={post} comment={comment}/>
           </div>

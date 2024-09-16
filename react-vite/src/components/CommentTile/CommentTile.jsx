@@ -6,24 +6,24 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCommentThunk } from '../../redux/comments';
 import { updateCommentThunk } from '../../redux/comments';
+import { getAllCommentsThunk } from '../../redux/comments';
 
 function CommentTile({users, post, comment}) {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user)
-  const comments = useSelector(state => state.commentsState.allComments)
+  // const comments = useSelector(state => state.commentsState.allComments)
   const [isLoaded, setIsLoaded] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [showUpdateField, setShowUpdateField] = useState(false);
   const [currComment, setCurrComment] = useState({comment: comment.comment})
-  const commentsState = useSelector(state => state.commentsState.allComments)
 
 
   const handleCommentToggle = () => {
     setShowOptions(!showOptions);
   }
 
-  const handleUpdateFieldToggle = () => {
-    setShowUpdateField(!showUpdateField)
+  const handleUpdateFieldToggle = async () => {
+    setShowUpdateField(!showUpdateField);
   }
 
   useEffect(() => {
@@ -46,7 +46,6 @@ function CommentTile({users, post, comment}) {
 
   const updateComment = (val) => {
     setCurrComment({comment: val})
-    console.log('updatecomm', val)
   }
 
   const handleSubmit = async (e) => {
