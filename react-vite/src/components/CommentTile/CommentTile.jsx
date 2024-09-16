@@ -15,7 +15,6 @@ function CommentTile({users, post, comment}) {
   const [showOptions, setShowOptions] = useState(false);
   const [showUpdateField, setShowUpdateField] = useState(false);
   const [currComment, setCurrComment] = useState({comment: comment.comment})
-  const sessionUser = useSelector(state => state.session.user)
   const commentsState = useSelector(state => state.commentsState.allComments)
 
 
