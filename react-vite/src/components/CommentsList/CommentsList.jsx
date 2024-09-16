@@ -44,6 +44,7 @@ const CommentsList = ({post, users}) => {
       setErrors(null);
       // const newComments = await dispatch(getAllCommentsThunk(post.id));
       // setUpdatedComments(newComments);
+      await dispatch(getAllUsersThunk())
     }
   };
 
