@@ -31,7 +31,7 @@ const PostList = () => {
   }, [dispatch, isLoaded, posts])
 
   if (!posts) {
-    return <h1>Loading</h1>
+    return <h1>Loading!!!!!</h1>
   }
 
   const featureAlert = (e) => {

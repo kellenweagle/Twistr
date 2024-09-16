@@ -32,10 +32,10 @@ const PostTile = ({users, post}) => {
       await dispatch(getAllLikesThunk())
       setLoaded(true);
     };
-    if (!loaded || showComments) {
+    if (!loaded) {
       getData();
     }
-  }, [dispatch, loaded, post.id, showComments]);
+  }, [dispatch, loaded, post.id]);
 
   const handleLike = async (e) => {
     e.preventDefault()
@@ -64,7 +64,7 @@ const PostTile = ({users, post}) => {
 
   if (!post || !users || !likes || users.length === 0) {
 
-    return <h1>Loading...</h1>
+    return null
   }
 
   let user = users.find((user) => user.id === post.user_id);
@@ -86,19 +86,23 @@ const PostTile = ({users, post}) => {
             <div className="username">{user.username.toLowerCase()}</div>
           </div>
         </div>
-        {sessionUser.id === user.id ? (
-        showOptions ? <div className='options-list-tab'>
-          <OpenModalButton
-              className='update-post-button'
-              buttonText={<><span style={{color: 'black'}}>UPDATE</span></>}
-              modalComponent={<UpdatePost postid={updateId} />} />
-          <button className='delete-post-button' onClick={handleDelete}>DELETE</button>
-          <div className="post-options">
-            <BsThreeDots className='post-options-dots' onClick={handleOptionsToggle}/>
-          </div>
-        </div> : <div className="post-options">
-            <BsThreeDots className='post-options-dots' onClick={handleOptionsToggle}/>
-          </div>) : null}
+        {!sessionUser ?
+          null :
+          (sessionUser.id === user.id ? (
+            showOptions ? <div className='options-list-tab'>
+              <OpenModalButton
+                  className='update-post-button'
+                  buttonText={<><span style={{color: 'black'}}>UPDATE</span></>}
+                  modalComponent={<UpdatePost postid={updateId} />} />
+              <button className='delete-post-button' onClick={handleDelete}>DELETE</button>
+              <div className="post-options">
+                <BsThreeDots className='post-options-dots' onClick={handleOptionsToggle}/>
+              </div>
+            </div> : <div className="post-options">
+                <BsThreeDots className='post-options-dots' onClick={handleOptionsToggle}/>
+              </div>) : null
+        )}
+
       </div>
       <div className='post-image-container'>
         {post.image_one ? <img className='post-image' src={post.image_one} /> : null}

@@ -12,8 +12,8 @@ function CommentTile({users, post, comment}) {
   const [showOptions, setShowOptions] = useState(false);
   const sessionUser = useSelector(state => state.session.user)
   const commentsState = useSelector(state => state.commentsState.allComments)
-  
-  
+
+
 
   const handleCommentToggle = () => {
     setShowOptions(!showOptions);
@@ -35,9 +35,9 @@ function CommentTile({users, post, comment}) {
     e.stopPropagation()
 
     await dispatch(deleteCommentThunk(post.id, comment.id))
-    
-    
-      
+
+
+
   }
 
   let user = users.find((user) => user.id === comment.user_id);
@@ -49,16 +49,18 @@ function CommentTile({users, post, comment}) {
 
         <div className='comment-top-line'>
           <div className='comment-username'>{user.username.toLowerCase()}</div>
-          {sessionUser.id === user.id ? (
-        showOptions ? <div className='options-list-tab'>
-          <button className="edit-comment">Edit</button>
-          <button className="delete-comment" onClick={(e) => handleDelete(e)}>Delete</button>
-          <div className="comment-options">
-            <BsThreeDots className='comment-options-dots' onClick={handleCommentToggle}/>
-          </div>
-        </div> : <div className="comment-options">
-            <BsThreeDots className='comment-options-dots' onClick={handleCommentToggle}/>
-          </div>) : null}
+          {!sessionUser ? null : (
+            sessionUser.id === user.id ? (
+          showOptions ? <div className='options-list-tab'>
+            <button className="edit-comment">Edit</button>
+            <button className="delete-comment">Delete</button>
+            <div className="comment-options">
+              <BsThreeDots className='comment-options-dots' onClick={handleCommentToggle}/>
+            </div>
+          </div> : <div className="comment-options">
+              <BsThreeDots className='comment-options-dots' onClick={handleCommentToggle}/>
+            </div>) : null
+          )}
         </div>
         <div className='comment-text'>{comment.comment}</div>
       </div>

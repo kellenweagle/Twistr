@@ -46,25 +46,34 @@ const CommentsList = ({post, users}) => {
       // setUpdatedComments(newComments);
     }
   };
-  
+
+  if (!isLoaded) {
+    return <div className="spinner-container">
+      <div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      </div>
+  }
+
   return (
     <div className="comments-list-container">
-      <div className="comment-form-container">
-        <div className="profile-pic">{sessionUser.username[0].toLowerCase()}</div>
-        <form className="comment-form" onSubmit={(e) => handleSubmit(e)}>
-          <input
-            type="text"
-            placeholder={`Reply as @${sessionUser.username}`}
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            required
-            />
-          <button className="input-icon">
-            <LuSendHorizonal />
-          </button>
-          {errors && <p>{errors}</p>}
-        </form>
-      </div>
+      {!sessionUser ? null : (
+        <div className="comment-form-container">
+          <div className="profile-pic">{sessionUser.username[0].toLowerCase()}</div>
+          <form className="comment-form" onSubmit={(e) => handleSubmit(e)}>
+            <input
+              type="text"
+              placeholder={`Reply as @${sessionUser.username}`}
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              required
+              />
+            <button className="input-icon">
+              <LuSendHorizonal />
+            </button>
+            {errors && <p>{errors}</p>}
+          </form>
+        </div>
+
+      )}
       <div className="comments">
         {comments.map((comment, idx) => (
           <div key={`${idx}-${comment.post_id}`} className="comment-tile">
