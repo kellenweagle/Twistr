@@ -22,10 +22,10 @@ function CreatePostModal() {
 
     const newPostData = ({
       post: post,
-      imageOne: imageOne,
-      imageTwo: imageTwo,
-      imageThree: imageThree,
-      imageFour: imageFour
+      image_one: imageOne,
+      image_two: imageTwo,
+      image_three: imageThree,
+      image_four: imageFour
     })
 
     console.log(newPostData, "--------------------- this is the new post")

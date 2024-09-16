@@ -12,6 +12,9 @@ from .api.post_routes import post_routes
 from .seeds import seed_commands
 from .config import Config
 from .api.likes_routes import likes_routes
+import logging
+
+logging.disable(logging.WARNING)
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
