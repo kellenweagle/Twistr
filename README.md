@@ -87,29 +87,29 @@ Some challenges during the development of Twister included issues with the like 
 ## technologies used for this project
 
 ### backend
-click
-gunicorn
-itsdangerous
-python-dotenv
-six
-alembic
-python-dateutil
-python-editor
-greenlet
-flask
-flask-cors
-flask-login
-flask-migrate
-flask-sqlalchemy
-flask-wtf
-jinja2
-mako
-markupsafe
-sqlalchemy
-werkqeug
-wtforms
-importlib-metadata
-zipp
+click\
+gunicorn\
+itsdangerous\
+python-dotenv\
+six\
+alembic\
+python-dateutil\
+python-editor\
+greenlet\
+flask\
+flask-cors\
+flask-login\
+flask-migrate\
+flask-sqlalchemy\
+flask-wtf\
+jinja2\
+mako\
+markupsafe\
+sqlalchemy\
+werkzeug\
+wtforms\
+importlib-metadata\
+zipp\
 
 ### frontend
 js-cookie\
