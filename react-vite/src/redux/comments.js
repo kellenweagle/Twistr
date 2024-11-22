@@ -98,7 +98,7 @@ export const deleteCommentThunk = (id, commentId) => async (dispatch) => {
 
         const deletedComment = await csrfFetch(`/api/posts/${id}/comments/${commentId}`, options)
 
-        console.log(deletedComment, 'deleted comment')
+        
 
         if (deletedComment.ok) {
 

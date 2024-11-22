@@ -59,7 +59,7 @@ export const createLikeThunk = (id) => async (dispatch) => {
         } else throw res;
 
     } catch (error) {
-        console.log( error)
+        next(error)
     }
 }
 
